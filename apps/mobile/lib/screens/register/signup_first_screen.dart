@@ -68,9 +68,15 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
                 ],
               ),
               const SizedBox(height: 16),
+              Image.asset(
+                'assets/images/add_profile.png',
+                width: 50,
+              ),
+              const SizedBox(height: 16),
               CustomInputField(
                 label: 'Name',
                 hintText: 'Enter your name',
+                additionalLabel: '*sesuai KTP',
                 controller: nameController,
               ),
               const SizedBox(height: 16),
@@ -87,10 +93,69 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
                 controller: passwordController,
               ),
               const SizedBox(height: 16),
-              GlobalButton(
-                text: 'Masuk',
-                onTap: () {},
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 32,
+                    height: 8,
+                    decoration: BoxDecoration(
+                      color: GlobalColor.neutral[700],
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Container(
+                    width: 8,
+                    height: 8,
+                    decoration: BoxDecoration(
+                      color: GlobalColor.neutral[100],
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ],
               ),
+              const SizedBox(height: 16),
+              GlobalButton(
+                text: 'Selanjutnya',
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/signup-second',
+                    arguments: {
+                      'name': nameController.text,
+                      'email': emailController.text,
+                      'password': passwordController.text,
+                    },
+                  );
+                },
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Sudah memiliki akun? ',
+                    style: GlobalTextStyle.label12,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/signin');
+                    },
+                    child: Text(
+                      'Masuk',
+                      style: GlobalTextStyle.label12.copyWith(
+                        color: GlobalColor.primary[500],
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ),

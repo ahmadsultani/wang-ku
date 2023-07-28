@@ -13,11 +13,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Timer(const Duration(seconds: 2), () {
-      Navigator.pushNamed(context, '/signup-first');
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/signup-first', (route) => false);
     });
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     return const SafeArea(
