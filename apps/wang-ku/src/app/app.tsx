@@ -1,13 +1,16 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './app.module.css';
-
-import NxWelcome from './nx-welcome';
+import Navbar from "./components/organisms/Navbar";
+import Hero from "./components/organisms/Hero"
+import Feature from "./components/organisms/Feature";
+import Footer from "./components/organisms/Footer";
 
 export function App() {
   return (
-    <div>
-      <NxWelcome title="wang-ku" />
-    </div>
+    <main className="max-w-screen">
+      <Navbar />
+      <Hero />
+      <Feature />
+      <Footer />
+    </main>
   );
 }
 
