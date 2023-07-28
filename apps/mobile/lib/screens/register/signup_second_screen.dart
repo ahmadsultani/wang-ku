@@ -107,7 +107,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                     ),
                   ),
                   Image.asset(
-                    'assets/icons/app_icon.png',
+                    'assets/icons/splash_icon.png',
                     width: 32,
                     height: 32,
                   ),
@@ -159,7 +159,7 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                   print(date);
                   Navigator.pushNamed(
                     context,
-                    '/', // TODO
+                    '/signup-third', // TODO
                     arguments: {
                       'name': phoneNumberController,
                       // 'email': emailController,

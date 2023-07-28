@@ -61,7 +61,7 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
                     ),
                   ),
                   Image.asset(
-                    'assets/icons/app_icon.png',
+                    'assets/icons/splash_icon.png',
                     width: 32,
                     height: 32,
                   ),
