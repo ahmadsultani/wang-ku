@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mobile/screens/register/signin_screen.dart';
 import 'package:mobile/screens/register/signup_first_screen_.dart';
 import 'package:mobile/screens/splash_screens.dart';
 import 'package:mobile/utils/route_animations.dart';
@@ -13,6 +14,8 @@ void main() {
       onGenerateRoute: (settings) {
         if (settings.name == '/signup-first') {
           return RouteAnimations.slide(settings, const SignupFirstScreen());
+        } else if (settings.name == '/signin') {
+          return RouteAnimations.slide(settings, const SigninScreen());
         } else {
           // return RouteAnimations.slide(settings, const SplashScreen());
         }

@@ -40,11 +40,11 @@ class CustomInputField extends StatelessWidget {
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             focusedBorder: OutlineInputBorder(
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
+              borderRadius: const BorderRadius.all(Radius.circular(4)),
               borderSide: BorderSide(color: GlobalColor.primary[500]!),
             ),
             border: OutlineInputBorder(
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
+              borderRadius: const BorderRadius.all(Radius.circular(4)),
               borderSide: BorderSide(color: GlobalColor.neutral[900]!),
             ),
           ),
