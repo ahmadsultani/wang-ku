@@ -27,6 +27,7 @@ class GlobalTextStyle {
 }
 
 abstract final class GlobalColor {
+  static const Color onPrimaryButton = Color(0xffE8E8E8);
   static const int _defaultGrey = 0xFF70747E;
   static const MaterialColor grey = MaterialColor(_defaultGrey, <int, Color>{
     50: Color(0xFFEDEEF0),
