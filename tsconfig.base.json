@@ -10,11 +10,29 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2020", "dom"],
+    "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
+    "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@wang-ku/api/database": ["libs/api/database/src/index.ts"],
+      "@wang-ku/api/database/migrations": [
+        "libs/api/database/migrations/src/index.ts"
+      ],
+      "@wang-ku/api/error-handling": ["libs/api/error-handling/src/index.ts"],
+      "@wang-ku/api/features/auth": ["libs/api/features/auth/src/index.ts"],
+      "@wang-ku/api/plugins": ["libs/api/plugins/src/index.ts"],
+      "@wang-ku/api/util/test": ["libs/api/util/test/src/index.ts"],
+      "@wang-ku/shared/schema": ["libs/shared/schema/src/index.ts"]
+    },
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   },
   "exclude": ["node_modules", "tmp"]
 }

@@ -1,7 +1,7 @@
-import Card from '../../molecules/Card';
-import MoneyImage from '../../../../assets/money.svg';
 import CuateImage from '../../../../assets/cuate.svg';
+import MoneyImage from '../../../../assets/money.svg';
 import QRCode from '../../../../assets/qr-code.svg';
+import Card from '../../molecules/Card';
 
 export function Feature() {
   return (

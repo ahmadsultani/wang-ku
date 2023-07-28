@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+
+URL="http://0.0.0.0:9000"
+MAX_ATTEMPTS=12
+ATTEMPT_COUNT=1
+
+case "$1" in
+'api')
+  while [ "$ATTEMPT_COUNT" -le "$MAX_ATTEMPTS" ]; do
+    echo "Attempting to connect to API (attempt $ATTEMPT_COUNT of $MAX_ATTEMPTS)..."
+    if curl -f "$URL" >/dev/null 2>&1; then
+      echo "API is up!"
+      exit 0
+    else
+      echo "Connection failed. Retrying in 5 seconds..."
+      sleep 5
+      ATTEMPT_COUNT=$((ATTEMPT_COUNT + 1))
+    fi
+  done
+
+  echo "Could not connect to API after $MAX_ATTEMPTS attempts. Exiting."
+  exit 1
+  ;;
+*)
+  echo "Usage: $0 { api }"
+  ;;
+esac

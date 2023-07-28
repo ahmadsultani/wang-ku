@@ -1,0 +1,251 @@
+#!/usr/bin/env sh
+
+pubget() {
+  flutter pub get
+}
+
+pubget_mobile() {
+  cd apps/mobile && pubget
+}
+
+pubget_installer() {
+  cd apps/installer && pubget
+}
+
+pubget_shared() {
+  cd libs/mobile/shared && pubget
+}
+
+build_runner_mobile() {
+  cd apps/mobile && flutter pub run build_runner build --delete-conflicting-outputs
+}
+
+build_runner_installer() {
+  cd apps/installer && flutter pub run build_runner build --delete-conflicting-outputs
+}
+
+build_runner_shared() {
+  cd libs/mobile/shared && flutter pub run build_runner build --delete-conflicting-outputs
+}
+
+build_dart_model() {
+  pnpm nx build generate-dart-models && node dist/apps/generate-dart-models/main.js
+}
+
+format_generated_models() {
+  dart format lib/domains/generated/
+}
+
+watch() {
+  flutter pub run build_runner watch --delete-conflicting-outputs
+}
+
+test_mobile() {
+  cd apps/mobile &&
+
+    # Generate `coverage/lcov.info` file
+    flutter test --coverage &&
+
+    # Generate HTML report
+    # Note: on macOS you need to have lcov installed on your system (`brew install lcov`) to use this:
+    genhtml coverage/lcov.info -o coverage/html
+}
+
+test_installer() {
+  cd apps/installer &&
+
+    # Generate `coverage/lcov.info` file
+    flutter test --coverage &&
+
+    # Generate HTML report
+    # Note: on macOS you need to have lcov installed on your system (`brew install lcov`) to use this:
+    genhtml coverage/lcov.info -o coverage/html
+}
+
+test_shared() {
+  cd libs/mobile/shared &&
+
+    # Generate `coverage/lcov.info` file
+    flutter test --coverage &&
+
+    # Generate HTML report
+    # Note: on macOS you need to have lcov installed on your system (`brew install lcov`) to use this:
+    genhtml coverage/lcov.info -o coverage/html
+}
+
+generate_l10n() {
+  flutter pub run easy_localization:generate -S assets/translations -O lib/gen -o locale_keys.g.dart -f keys
+}
+
+build_app=$2                        # owner | installer
+build_nx_project=$2                 # mobile | installer
+build_type=$3                       # ipa | apk | appbundle
+build_env=$4                        # dev | stag | uat | prod
+build_name="com.supremesolar.$2.$4" # example: com.supremesolar.owner.stag
+
+build_flutter() {
+  if [ $build_app == "owner" ]; then
+    build_nx_project="mobile"
+  else
+    build_nx_project="installer"
+  fi
+
+  build_info="RUN BUILD $build_nx_project $build_type $build_env"
+  echo $build_info | tr [:lower:] [:upper:]
+
+  if [ $build_env == "prod" ]; then
+    echo "cd apps/$build_nx_project && flutter build $build_type --release --flavor $build_env -t lib/main.dart"
+    cd apps/$build_nx_project && flutter build $build_type --release --flavor $build_env -t lib/main.dart
+  else
+    echo "cd apps/$build_nx_project && flutter build $build_type --release --flavor $build_env -t lib/main_$build_env.dart"
+    cd apps/$build_nx_project && flutter build $build_type --release --flavor $build_env -t lib/main_$build_env.dart
+  fi
+}
+
+move_artefact() {
+  if [ "$build_env" == "dev" ]; then
+    build_env_release="devRelease"
+  elif [ "$build_env" == "stag" ]; then
+    build_env_release="stagRelease"
+  elif [ "$build_env" == "uat" ]; then
+    build_env_release="uatRelease"
+  else
+    build_env_release="prodRelease"
+  fi
+
+  if [ "$build_type" == "ipa" ]; 
+    then
+      if [ $build_app == "owner" ]; then
+        build_source="build/ios/ipa/Supreme Solar.ipa"
+      else
+        build_source="build/ios/ipa/Supreme Installer.ipa"
+      fi
+    build_target="../../dist/mobile/$build_name.ipa"
+    build_archive_target="../../dist/mobile/${build_name}.xcarchive"
+    build_archive_source="build/ios/archive/Runner.xcarchive"
+  elif [ "$build_type" == "apk" ]; then
+    build_source="build/app/outputs/flutter-apk/app-$build_env-release.apk"
+    build_target="../../dist/mobile/$build_name.apk"
+  else
+    build_source="build/app/outputs/bundle/$build_env_release/app-$build_env-release.aab"
+    build_target="../../dist/mobile/$build_name.aab"
+  fi
+
+  mkdir -p $(dirname "$build_target")
+  
+  # Move build app android or iOS
+  echo "mv $build_source $build_target" &&
+  mv "$build_source" "$build_target" &&
+  echo "\n\xE2\x9C\x93  $(tput setaf 2)Moved to $build_target$(tput sgr0)"
+  
+  # Move build app archive iOS
+  if [ ! -z "$build_archive_source" ] && [ ! -z "$build_archive_target" ]; then  
+    rm -rf "$build_archive_target" &&
+    echo "\n\nmv $build_source $build_target" &&
+    mv "$build_archive_source" "$build_archive_target" &&
+    echo "\n\xE2\x9C\x93  $(tput setaf 2)Moved to $build_archive_target$(tput sgr0)"
+  fi
+}
+
+case $1 in
+"get")
+  case $2 in
+  "mobile")
+    echo "RUN PUB GET MOBILE" && pubget_mobile
+    ;;
+  "installer")
+    echo "RUN PUB GET INSTALLER" && pubget_installer
+    ;;
+  "shared")
+    echo "RUN PUB GET SHARED" && pubget_shared
+    ;;
+  *)
+    echo "RUN PUB GET ALL" &&
+      pubget_shared &&
+      cd ../../../ &&
+      pubget_mobile &&
+      cd ../../ &&
+      pubget_installer
+    ;;
+  esac
+  ;;
+"build_runner")
+  case $2 in
+  "mobile")
+    echo "RUN BUILD MOBILE" && build_runner_mobile
+    ;;
+  "installer")
+    echo "RUN BUILD INSTALLER" && build_runner_installer
+    ;;
+  "shared")
+    echo "RUN BUILD SHARED" && build_runner_shared && generate_l10n
+    ;;
+  "dartmodel")
+    echo "RUN BUILD DART-MODELS" && build_dart_model && build_runner_shared && format_generated_models
+    ;;
+  *)
+    echo "RUN BUILD ALL" &&
+      build_runner_shared && generate_l10n &&
+      cd ../../../ &&
+      build_runner_mobile &&
+      cd ../../ &&
+      build_runner_installer
+    ;;
+  esac
+  ;;
+"test")
+  case $2 in
+  "mobile")
+    echo "RUN TEST MOBILE" && test_mobile
+    ;;
+  "installer")
+    echo "RUN TEST INSTALLER" && test_installer
+    ;;
+  "shared")
+    echo "RUN TEST SHARED" && test_shared
+    ;;
+  *)
+    echo "RUN TEST ALL" &&
+      test_shared &&
+      cd ../../../ &&
+      test_mobile &&
+      cd ../../ &&
+      test_installer
+    ;;
+  esac
+  ;;
+"watch")
+  case $2 in
+  "mobile")
+    echo "RUN WATCH MOBILE" && cd apps/mobile && watch
+    ;;
+  "installer")
+    echo "RUN WATCH INSTALLER" && cd apps/installer && watch
+    ;;
+  "shared")
+    echo "RUN WATCH SHARED" && cd libs/mobile/shared && watch
+    ;;
+  *)
+    echo "Usage: $0 $1 { mobile, installer, shared }"
+    ;;
+  esac
+  ;;
+"build")
+  if [ "$build_app" == "owner" -o "$build_app" == "installer" ]; then
+    if [ "$build_type" == "apk" -o "$build_type" == "appbundle" -o "$build_type" == "ipa" ]; then
+      if [ "$build_env" == "dev" -o "$build_env" == "stag" -o "$build_env" == "uat" -o "$build_env" == "prod" ]; then
+        build_flutter && move_artefact
+      else
+        echo "Usage: $0 $1 $build_app $build_type { dev, stag, uat, prod }"
+      fi
+    else
+      echo "Usage: $0 $1 $2 { apk, appbundle, ipa }"
+    fi
+  else
+    echo "Usage: $0 $1 { owner, installer }\nor maybe what you mean is build_runner?"
+  fi
+  ;;
+*)
+  echo "Usage: $0 { build_runner, build, get, watch }"
+  ;;
+esac

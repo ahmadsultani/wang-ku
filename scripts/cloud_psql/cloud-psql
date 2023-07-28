@@ -1,0 +1,73 @@
+#!/bin/bash
+
+DB_CONFIG="db_config.json"
+SERVICE_ACCOUNT_KEY="be_serviceAccount.json"
+
+function connect_to_db() {
+  APP_ENV=$1
+
+  DB_NAME=$(jq -r --arg env "$APP_ENV" '.[$env].db_name' "$DB_CONFIG")
+  DB_INSTANCE_NAME=$(jq -r --arg env "$APP_ENV" '.[$env].db_instance_name' "$DB_CONFIG")
+  DB_USERNAME=$(jq -r --arg env "$APP_ENV" '.[$env].db_username' "$DB_CONFIG")
+  DB_PASSWORD=$(jq -r --arg env "$APP_ENV" '.[$env].db_password' "$DB_CONFIG")
+
+  DATABASE_URL="postgresql://$DB_USERNAME:$DB_PASSWORD@localhost:5432/${DB_NAME}"
+
+  ./cloud-sql-proxy "$DB_INSTANCE_NAME" -c "$SERVICE_ACCOUNT_KEY" &
+
+  MAX_ATTEMPTS=12
+  ATTEMPT_COUNT=1
+
+  while [[ $ATTEMPT_COUNT -le $MAX_ATTEMPTS ]]; do
+    echo "Attempting to connect to database (attempt $ATTEMPT_COUNT of $MAX_ATTEMPTS)..."
+    psql "$DATABASE_URL" -c "SELECT 1" >/dev/null 2>&1
+    if [[ $? -eq 0 ]]; then
+      echo "Connected to database."
+      break
+    else
+      echo "Connection failed. Retrying in 5 seconds..."
+      sleep 5
+      ATTEMPT_COUNT=$((ATTEMPT_COUNT + 1))
+    fi
+  done
+
+  if [[ $ATTEMPT_COUNT -gt $MAX_ATTEMPTS ]]; then
+    echo "Could not connect to database after $MAX_ATTEMPTS attempts. Exiting."
+    exit 1
+  fi
+
+  psql "$DATABASE_URL"
+  disconnect_from_db
+
+}
+
+function disconnect_from_db() {
+  pid=$(ps -ef | grep cloud-sql-proxy | grep -v grep | awk '{print $2}')
+  if [[ -z "$pid" ]]; then
+    echo "Not connected to any database."
+  else
+    kill "$pid"
+    echo "Disconnected from database."
+  fi
+}
+
+case $1 in
+connect)
+  case $2 in
+  staging | prod | uat)
+    connect_to_db "$2"
+    ;;
+  *)
+    echo "Invalid APP_ENV. Please use 'staging' or 'prod' or 'uat'."
+    exit 1
+    ;;
+  esac
+  ;;
+disconnect)
+  disconnect_from_db
+  ;;
+*)
+  echo "Invalid command. Please use 'connect' or 'disconnect'."
+  exit 1
+  ;;
+esac

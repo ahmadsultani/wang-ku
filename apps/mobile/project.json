@@ -25,13 +25,6 @@
         "cwd": "apps/mobile"
       }
     },
-    "test": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "flutter test",
-        "cwd": "apps/mobile"
-      }
-    },
     "doctor": {
       "executor": "nx:run-commands",
       "options": {
@@ -87,9 +80,7 @@
         "command": "flutter build aar",
         "cwd": "apps/mobile"
       },
-      "outputs": [
-        "{workspaceRoot}/apps/mobile/build"
-      ]
+      "outputs": ["{workspaceRoot}/apps/mobile/build"]
     },
     "build-apk": {
       "executor": "nx:run-commands",
@@ -97,9 +88,7 @@
         "command": "flutter build apk",
         "cwd": "apps/mobile"
       },
-      "outputs": [
-        "{workspaceRoot}/apps/mobile/build"
-      ]
+      "outputs": ["{workspaceRoot}/apps/mobile/build"]
     },
     "build-appbundle": {
       "executor": "nx:run-commands",
@@ -107,9 +96,7 @@
         "command": "flutter build appbundle",
         "cwd": "apps/mobile"
       },
-      "outputs": [
-        "{workspaceRoot}/apps/mobile/build"
-      ]
+      "outputs": ["{workspaceRoot}/apps/mobile/build"]
     },
     "build-bundle": {
       "executor": "nx:run-commands",
@@ -117,9 +104,7 @@
         "command": "flutter build bundle",
         "cwd": "apps/mobile"
       },
-      "outputs": [
-        "{workspaceRoot}/apps/mobile/build"
-      ]
+      "outputs": ["{workspaceRoot}/apps/mobile/build"]
     },
     "pub-get": {
       "executor": "nx:run-commands",
@@ -127,9 +112,7 @@
         "command": "flutter pub get",
         "cwd": "apps/mobile"
       },
-      "outputs": [
-        "{workspaceRoot}/apps/mobile/build"
-      ]
+      "outputs": ["{workspaceRoot}/apps/mobile/build"]
     },
     "launcher-icons": {
       "executor": "nx:run-commands",
@@ -137,9 +120,7 @@
         "command": "flutter pub run flutter_launcher_icons:main ",
         "cwd": "apps/mobile"
       },
-      "outputs": [
-        "{workspaceRoot}/apps/mobile/build"
-      ]
+      "outputs": ["{workspaceRoot}/apps/mobile/build"]
     }
   },
   "tags": []

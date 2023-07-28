@@ -1,9 +1,5 @@
 {
-  "implicitDependencies": {
-    "go.mod": "*"
-  },
   "plugins": [
-    "@nx-go/nx-go",
     "@nxrocks/nx-flutter"
   ],
   "namedInputs": {
@@ -15,7 +11,9 @@
       "default",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
       "!{projectRoot}/tsconfig.spec.json",
-      "!{projectRoot}/.eslintrc.json"
+      "!{projectRoot}/.eslintrc.json",
+      "!{projectRoot}/jest.config.[jt]s",
+      "!{projectRoot}/src/test-setup.[jt]s"
     ],
     "sharedGlobals": []
   },
@@ -38,7 +36,9 @@
     "test": {
       "inputs": [
         "default",
-        "^production"
+        "^production",
+        "{workspaceRoot}/jest.preset.ts}",
+        "{workspaceRoot}/jest.preset.js"
       ]
     },
     "lint": {

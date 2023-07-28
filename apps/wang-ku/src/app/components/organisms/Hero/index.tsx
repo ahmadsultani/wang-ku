@@ -1,6 +1,5 @@
-import PrimaryButton from '../../atoms/PrimaryButton';
-
 import Background from '../../../../assets/background.svg';
+import PrimaryButton from '../../atoms/PrimaryButton';
 
 export function Hero() {
   return (
@@ -13,8 +12,9 @@ export function Hero() {
           Atur keuangan pakai Wangku!
         </h4>
         <h1 className="text-heading-2 sm:text-heading-1 xl:text-display mt-4">
-          <span className="text-green-500">Mulai</span> dan {' '}
-          <span className="text-green-500">kembangkan</span> usahamu bersama kami.
+          <span className="text-green-500">Mulai</span> dan{' '}
+          <span className="text-green-500">kembangkan</span> usahamu bersama
+          kami.
         </h1>
         <PrimaryButton className="mt-8 px-6">
           <a className="text-heading-4 md:text-heading-3" href="/#">

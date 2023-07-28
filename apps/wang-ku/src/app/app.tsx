@@ -1,7 +1,7 @@
-import Navbar from "./components/organisms/Navbar";
-import Hero from "./components/organisms/Hero"
-import Feature from "./components/organisms/Feature";
-import Footer from "./components/organisms/Footer";
+import Feature from './components/organisms/Feature';
+import Footer from './components/organisms/Footer';
+import Hero from './components/organisms/Hero';
+import Navbar from './components/organisms/Navbar';
 
 export function App() {
   return (
