@@ -12,13 +12,21 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Timer(const Duration(seconds: 2), () { 
+    Timer(const Duration(seconds: 2), () {
       Navigator.pushNamed(context, '/signup-first');
     });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(child: Scaffold());
+    return const SafeArea(
+        child: Scaffold(
+      body: Center(
+          child: Image(
+              image: AssetImage('assets/icons/splash_icon.png'),
+              width: 120,
+              height: 120)),
+    ));
   }
 }
