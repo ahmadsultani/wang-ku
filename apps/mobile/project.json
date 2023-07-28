@@ -120,6 +120,26 @@
       "outputs": [
         "{workspaceRoot}/apps/mobile/build"
       ]
+    },
+    "pub-get": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "flutter pub get",
+        "cwd": "apps/mobile"
+      },
+      "outputs": [
+        "{workspaceRoot}/apps/mobile/build"
+      ]
+    },
+    "launcher-icons": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "flutter pub run flutter_launcher_icons:main ",
+        "cwd": "apps/mobile"
+      },
+      "outputs": [
+        "{workspaceRoot}/apps/mobile/build"
+      ]
     }
   },
   "tags": []
