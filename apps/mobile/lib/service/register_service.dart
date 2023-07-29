@@ -56,25 +56,31 @@ class RegisterService {
   ) async {
     // TODO: HIT API
     final response = await client.post(
-      Uri.parse('API_URL'),
-      body: {
+      Uri.parse('${dotenv.env['API_URL']}auth/sign-in'),
+      headers: {
+        "content-type": "application/json",
+        "accept": "application/json",
+      },
+      body: jsonEncode({
         'email': email,
         'password': password,
-      },
+      }),
     );
+    print(response.statusCode);
 
     if (response.statusCode == 200) {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       final decodedResponse = jsonDecode(response.body) as Map<String, dynamic>;
+      final data = decodedResponse['data'];
       // save to local
-      final user =
-          User.fromJson(decodedResponse['user'] as Map<String, dynamic>);
-      await prefs.setString('token', decodedResponse['token'] as String);
+      final user = User.fromJson(data['user'] as Map<String, dynamic>);
+      await prefs.setString('token', data['token'] as String);
       await prefs.setString('user', jsonEncode(user.toJson()));
       return Right(user);
     } else {
       // parse response
       final decodedResponse = jsonDecode(response.body);
+      // final data = decodedResponse['data'];
       return Left(RegisterFailure(decodedResponse['message']));
     }
   }

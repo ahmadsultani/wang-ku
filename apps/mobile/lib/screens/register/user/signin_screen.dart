@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile/constants/styles.dart';
+import 'package:mobile/cubit/register_cubit.dart';
 
+import '../../../constants/snackbar.dart';
 import '../../../widgets/global_widgets.dart';
 
 class SigninScreen extends StatefulWidget {
@@ -77,10 +80,31 @@ class _SigninScreenState extends State<SigninScreen> {
                 controller: passwordController,
               ),
               const SizedBox(height: 16),
-              GlobalButton(
-                text: 'Masuk',
-                onTap: () {
-                  Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+              BlocConsumer<RegisterCubit, RegisterState>(
+                listener: (context, state) {
+                  if (state is RegisterSignInSuccess) {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, '/home', (route) => false);
+                  } else if (state is RegisterSignInFailed) {
+                    final snackBar = alertSnackBar(state.failure.message);
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  }
+                },
+                builder: (context, state) {
+                  if (state is RegisterSignInLoading) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        color: GlobalColor.primary,
+                      ),
+                    );
+                  }
+                  return GlobalButton(
+                    text: 'Masuk',
+                    onTap: () {
+                      context.read<RegisterCubit>().onSignin(
+                          emailController.text, passwordController.text);
+                    },
+                  );
                 },
               ),
               const SizedBox(height: 8),

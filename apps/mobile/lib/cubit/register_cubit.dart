@@ -50,12 +50,8 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   void onSignin(
-    String name,
     String email,
     String password,
-    String phoneNumber,
-    BigInt birthdate,
-    String gender,
   ) async {
     emit(RegisterSignInLoading());
     // check internet connection

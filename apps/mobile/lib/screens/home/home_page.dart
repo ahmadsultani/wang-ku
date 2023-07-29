@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile/constants/styles.dart';
+import 'package:mobile/cubit/register_cubit.dart';
 import 'package:mobile/widgets/global_widgets.dart';
 
 class HomePage extends StatelessWidget {
@@ -7,6 +9,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currentUser = context.read<RegisterCubit>().currentUser;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
@@ -21,7 +24,8 @@ class HomePage extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Halo, Fathanah', style: GlobalTextStyle.paragraph18),
+                  Text('Halo, ${currentUser!.name}',
+                      style: GlobalTextStyle.paragraph18),
                   const SizedBox(
                     height: 4,
                   ),
@@ -38,9 +42,10 @@ class HomePage extends StatelessWidget {
               ),
               const Spacer(),
               const Image(
-                  image: AssetImage('assets/images/profile.png'),
-                  width: 32,
-                  height: 32)
+                image: AssetImage('assets/images/profile.png'),
+                width: 32,
+                height: 32,
+              ),
             ],
           ),
           const SizedBox(
