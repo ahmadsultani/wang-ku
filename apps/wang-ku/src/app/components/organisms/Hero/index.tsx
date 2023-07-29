@@ -1,4 +1,5 @@
 import Background from '../../../../assets/background.svg';
+import PhoneImage from '../../../../assets/phone.png';
 import PrimaryButton from '../../atoms/PrimaryButton';
 
 export function Hero() {
@@ -22,6 +23,7 @@ export function Hero() {
           </a>
         </PrimaryButton>
       </div>
+      <img src={PhoneImage} alt="phone" className="hidden lg:block h-[90vh] xl:mr-10 z-10 " />
       <img
         src={Background}
         alt="background"
