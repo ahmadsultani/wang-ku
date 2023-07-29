@@ -4,7 +4,7 @@ import PrimaryButton from '../../atoms/PrimaryButton';
 
 export function Navbar() {
   return (
-    <nav className="absolute z-50 top-0 w-full flex justify-between py-6 bg-neutral-50 px-7 md:px-24 xl:px-32">
+    <nav className="md:sticky z-50 top-0 w-full flex justify-between py-6 bg-neutral-50 px-7 md:px-24 xl:px-32">
       <section className="flex items-center gap-2">
         <img src={Logo} alt="logo" className="w-16 h-[45px]" />
         <img src={LogoLabel} alt="logo-label" className="" />
@@ -13,7 +13,7 @@ export function Navbar() {
         <a href="/#beranda">Beranda</a>
         <a href="/#fitur">Fitur</a>
         <PrimaryButton>
-          <a href="/#tentang">Unduh WangKu</a>
+          <a href="https://github.com/excalios/wang-ku">Unduh WangKu</a>
         </PrimaryButton>
       </section>
     </nav>

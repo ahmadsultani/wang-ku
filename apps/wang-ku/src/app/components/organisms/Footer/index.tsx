@@ -28,8 +28,8 @@ export function Footer() {
             <img src={LogoLabel} alt="logo-label" className="" />
           </div>
           <div className="flex flex-col gap-4 md:gap-2 text-label-18 font-medium">
-            <a href="/#">Beranda</a>
-            <a href="/#">Fitur</a>
+            <a href="/#beranda">Beranda</a>
+            <a href="/#fitur">Fitur</a>
           </div>
         </section>
 

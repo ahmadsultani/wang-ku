@@ -18,12 +18,12 @@ export function Hero() {
           kami.
         </h1>
         <PrimaryButton className="mt-8 px-6">
-          <a className="text-heading-4 md:text-heading-3" href="/#">
+          <a className="text-heading-4 md:text-heading-3" href="https://github.com/excalios/wang-ku">
             Unduh WangKu
           </a>
         </PrimaryButton>
       </div>
-      <img src={PhoneImage} alt="phone" className="hidden lg:block h-[90vh] xl:mr-10 z-10 " />
+      <img src={PhoneImage} alt="phone" className="hidden lg:block h-[80vh] xl:mr-10 z-10 " />
       <img
         src={Background}
         alt="background"
