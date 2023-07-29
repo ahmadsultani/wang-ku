@@ -42,7 +42,7 @@
     "pg": "^8.11.1",
     "pino": "^8.14.2",
     "pino-pretty": "^10.2.0",
-    "quicktype-core": "^21.0.9",
+    "quicktype-core": "^6.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tslib": "^2.6.1"
