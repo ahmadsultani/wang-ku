@@ -15,8 +15,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final bool isPengusaha = true;
-  final bool isVerified = true;
+  // final bool isPengusaha = true;
+  // final bool isVerified = true;
 
   @override
   void initState() {
@@ -239,7 +239,7 @@ class _HomePageState extends State<HomePage> {
                             const SizedBox(
                               height: 16,
                             ),
-                            if (isVerified)
+                            if (state.dashboard.ktpVerify)
                               GlobalButton(
                                   text: 'Ajukan Pinjaman',
                                   secondary: true,

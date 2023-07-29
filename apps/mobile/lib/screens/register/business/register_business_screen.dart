@@ -146,12 +146,14 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
                   label: 'Pemasukan Per Bulan',
                   hintText: 'Rp. 500.000.000',
                   controller: incomeController,
+                  number: true,
                 ),
                 const SizedBox(height: 8),
                 CustomInputField(
                   label: 'Pengeluaran Per Bulan',
                   hintText: 'Rp. 400.000.000',
                   controller: outcomeController,
+                  number: true,
                 ),
                 const SizedBox(height: 15),
                 BlocConsumer<BusinessCubit, BusinessState>(
