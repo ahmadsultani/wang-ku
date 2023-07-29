@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile/constants/styles.dart';
+import 'package:mobile/cubit/verify_cubit.dart';
 import 'package:mobile/utils/route_argument.dart';
 import 'package:mobile/widgets/global_widgets.dart';
+
+import '../../constants/snackbar.dart';
 
 class LoanVerificationThirdScreen extends StatefulWidget {
   final String name;
@@ -33,13 +37,13 @@ class LoanVerificationThirdScreen extends StatefulWidget {
 
 class _LoanVerificationThirdScreenState
     extends State<LoanVerificationThirdScreen> {
-  late TextEditingController statusController;
+  late TextEditingController nikController;
   late TextEditingController jobController;
   late TextEditingController nationalityController;
 
   @override
   void initState() {
-    statusController = TextEditingController();
+    nikController = TextEditingController();
     jobController = TextEditingController();
     nationalityController = TextEditingController();
     super.initState();
@@ -47,7 +51,7 @@ class _LoanVerificationThirdScreenState
 
   @override
   void dispose() {
-    statusController.dispose();
+    nikController.dispose();
     jobController.dispose();
     nationalityController.dispose();
     super.dispose();
@@ -112,36 +116,10 @@ class _LoanVerificationThirdScreenState
                 ],
               ),
               const SizedBox(height: 7),
-              Container(
-                height: 120,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: GlobalColor.neutral[100],
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.upload_outlined,
-                      color: GlobalColor.neutral[300],
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      'Silahkan Unggah Scan KTP (format jpg/png)\nMaks. 2MB',
-                      textAlign: TextAlign.center,
-                      style: GlobalTextStyle.paragraph12.copyWith(
-                        color: GlobalColor.neutral[300],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 24),
               CustomInputField(
-                label: 'Status Perkawinan',
-                hintText: 'Belum Menikah',
-                controller: statusController,
+                label: 'NIK',
+                hintText: 'NIK',
+                controller: nikController,
               ),
               const SizedBox(height: 9),
               CustomInputField(
@@ -156,28 +134,39 @@ class _LoanVerificationThirdScreenState
                 controller: nationalityController,
               ),
               const SizedBox(height: 24),
-              GlobalButton(
-                text: 'Verifikasi',
-                onTap: () {
-                  // TODO: ADD LOAN LOGIC
-                  Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    '/confirmation',
-                    (route) => false,
-                    arguments: ConfirmationScreenArgument(
+              BlocConsumer<VerifyCubit, VerifyState>(
+                listener: (context, state) {
+                  if (state is VerifySuccess) {
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      '/confirmation',
+                      (route) => false,
+                      arguments: ConfirmationScreenArgument(
                         'KTP-mu berhasil diverifkasi',
                         'Kembali ke beranda',
-                        '/home'),
+                        '/home',
+                      ),
+                    );
+                  } else if (state is VerifyFailed) {
+                    final snackBar = alertSnackBar(state.failure.message);
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  }
+                },
+                builder: (context, state) {
+                  if (state is VerifyLoading) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        color: GlobalColor.primary,
+                      ),
+                    );
+                  }
+                  return GlobalButton(
+                    text: 'Verifikasi',
+                    onTap: () {
+                      context.read<VerifyCubit>().onVerifyUser(
+                          '', nikController.text, widget.birthplace);
+                    },
                   );
-                  // Navigator.pushNamed(
-                  //   context,
-                  //   '/loan-second',
-                  //   arguments: {
-                  //     'name': statusController.text,
-                  //     'birthplace': jobController.text,
-                  //     'gender': nationalityController.text,
-                  //   },
-                  // );
                 },
               ),
             ],

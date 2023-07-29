@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/cubit/business_cubit.dart';
 import 'package:mobile/cubit/profile_cubit.dart';
 import 'package:mobile/cubit/register_cubit.dart';
+import 'package:mobile/cubit/verify_cubit.dart';
 import 'package:mobile/screens/confirmation_screen.dart';
 import 'package:mobile/screens/home/home_screen.dart';
 import 'package:mobile/screens/loan/loan_request_screen.dart';
@@ -32,6 +33,9 @@ Future<void> main() async {
       providers: [
         BlocProvider(
           create: (context) => RegisterCubit(),
+        ),
+        BlocProvider(
+          create: (context) => VerifyCubit(),
         ),
         BlocProvider(
           create: (context) => ProfileCubit(),

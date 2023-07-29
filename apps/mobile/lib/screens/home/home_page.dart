@@ -7,7 +7,7 @@ import 'package:mobile/widgets/global_widgets.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
   final bool isPengusaha = true;
-  final bool isVerified = true;
+  final bool isVerified = false;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,8 @@ class HomePage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text('Status Pinjaman:', style: GlobalTextStyle.paragraph12),
+                    Text('Status Pinjaman:',
+                        style: GlobalTextStyle.paragraph12),
                     const SizedBox(
                       width: 6,
                     ),
