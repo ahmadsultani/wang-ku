@@ -2,14 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:mobile/constants/styles.dart';
 import 'package:mobile/widgets/global_widgets.dart';
 
-class DataVerificationSecond extends StatefulWidget {
-  const DataVerificationSecond({super.key});
+class LoanVerificationSecondScreen extends StatefulWidget {
+  final String name;
+  final String birthplace;
+  final String gender;
+  const LoanVerificationSecondScreen({
+    super.key,
+    required this.name,
+    required this.birthplace,
+    required this.gender,
+  });
 
   @override
-  State<DataVerificationSecond> createState() => _DataVerificationSecondState();
+  State<LoanVerificationSecondScreen> createState() =>
+      LoanVerificationSecondScreenState();
 }
 
-class _DataVerificationSecondState extends State<DataVerificationSecond> {
+class LoanVerificationSecondScreenState
+    extends State<LoanVerificationSecondScreen> {
   late TextEditingController alamatController;
   late TextEditingController rtController;
   late TextEditingController rwController;
@@ -151,7 +161,8 @@ class _DataVerificationSecondState extends State<DataVerificationSecond> {
                   children: [
                     Expanded(
                       child: GlobalButton(
-                        text: 'Kembali',
+                        text: 'Sebelumnya',
+                        secondary: true,
                         onTap: () {
                           Navigator.pop(context);
                         },
@@ -160,10 +171,23 @@ class _DataVerificationSecondState extends State<DataVerificationSecond> {
                     const SizedBox(width: 9),
                     Expanded(
                       child: GlobalButton(
-                        text: 'Lanjut',
+                        text: 'Selanjutnya',
                         onTap: () {
                           Navigator.pushNamed(
-                              context, '/loan/data-verification-third');
+                            context,
+                            '/loan-third',
+                            arguments: {
+                              'name': widget.name,
+                              'birthplace': widget.birthplace,
+                              'gender': widget.gender,
+                              'alamat': alamatController.text,
+                              'rt': rtController.text,
+                              'rw': rwController.text,
+                              'kelurahan': kelurahanController.text,
+                              'kecamatan': kecamatanController.text,
+                              'agama': agamaController.text,
+                            },
+                          );
                         },
                       ),
                     ),

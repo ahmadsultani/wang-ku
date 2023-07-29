@@ -12,6 +12,7 @@ class CustomInputField extends StatefulWidget {
   final bool number;
   final bool submit;
   final void Function()? onAdditionalLabelTap;
+  final bool enabled;
 
   const CustomInputField({
     super.key,
@@ -22,7 +23,9 @@ class CustomInputField extends StatefulWidget {
     required this.controller,
     this.number = false,
     this.submit = false,
-    this.additionaLabelGreen = false, this.onAdditionalLabelTap,
+    this.additionaLabelGreen = false,
+    this.onAdditionalLabelTap,
+    this.enabled = true,
   });
 
   @override
@@ -59,15 +62,17 @@ class _CustomInputFieldState extends State<CustomInputField> {
             ),
             widget.additionalLabel.isNotEmpty
                 ? GestureDetector(
-                  onTap: widget.onAdditionalLabelTap,
-                  child: Text(
+                    onTap: widget.onAdditionalLabelTap,
+                    child: Text(
                       widget.additionalLabel,
                       style: GlobalTextStyle.label12.copyWith(
                         fontWeight: FontWeight.w500,
-                        color: widget.additionaLabelGreen ? GlobalColor.primary : GlobalColor.neutral[500],
+                        color: widget.additionaLabelGreen
+                            ? GlobalColor.primary
+                            : GlobalColor.neutral[500],
                       ),
                     ),
-                )
+                  )
                 : const SizedBox(),
           ],
         ),
@@ -75,6 +80,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
         TextFormField(
           obscureText: hide ?? false,
           keyboardType: widget.number ? TextInputType.number : null,
+          enabled: widget.enabled,
           textInputAction:
               widget.submit ? TextInputAction.done : TextInputAction.next,
           controller: widget.controller,
@@ -89,6 +95,8 @@ class _CustomInputFieldState extends State<CustomInputField> {
             hintStyle: GlobalTextStyle.label12.copyWith(
               color: GlobalColor.neutral[200],
             ),
+            fillColor: GlobalColor.neutral[100],
+            filled: !widget.enabled,
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             suffixIcon: widget.obscureText
@@ -292,11 +300,13 @@ class GlobalButton extends StatelessWidget {
   final String text;
   final void Function() onTap;
   final double? width;
+  final bool secondary;
   const GlobalButton({
     super.key,
     required this.text,
     required this.onTap,
     this.width,
+    this.secondary = false,
   });
 
   @override
@@ -307,14 +317,17 @@ class GlobalButton extends StatelessWidget {
         width: width,
         padding: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
-          color: GlobalColor.primary[500],
+          color: secondary ? Colors.white : GlobalColor.primary[500],
+          border: secondary ? Border.all(color: GlobalColor.primary) : null,
           borderRadius: BorderRadius.circular(4),
         ),
         child: Center(
           child: Text(
             text,
             style: GlobalTextStyle.label16.copyWith(
-              color: GlobalColor.onPrimaryButton,
+              color: secondary
+                  ? GlobalColor.primary[500]
+                  : GlobalColor.onPrimaryButton,
             ),
           ),
         ),

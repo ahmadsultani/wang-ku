@@ -6,6 +6,8 @@ import 'package:mobile/cubit/register_cubit.dart';
 import 'package:mobile/screens/confirmation_screen.dart';
 import 'package:mobile/screens/home/home_screen.dart';
 import 'package:mobile/screens/loan/loan_verification_first_screen.dart';
+import 'package:mobile/screens/loan/loan_verification_second_screen.dart';
+import 'package:mobile/screens/loan/loan_verification_third_scree.dart';
 import 'package:mobile/screens/network_error_screen.dart';
 import 'package:mobile/screens/register/business/help_file_screen.dart';
 import 'package:mobile/screens/register/business/register_business_screen.dart';
@@ -50,6 +52,32 @@ Future<void> main() async {
           } else if (settings.name == '/loan-first') {
             return RouteAnimations.slide(
                 settings, const LoanVerificationFirstScreen());
+          } else if (settings.name == '/loan-second') {
+            final argument = settings.arguments as Map<String, dynamic>;
+            return RouteAnimations.slide(
+              settings,
+              LoanVerificationSecondScreen(
+                name: argument['name'],
+                birthplace: argument['birthplace'],
+                gender: argument['gender'],
+              ),
+            );
+          } else if (settings.name == '/loan-third') {
+            final argument = settings.arguments as Map<String, dynamic>;
+            return RouteAnimations.slide(
+              settings,
+              LoanVerificationThirdScreen(
+                name: argument['name'],
+                birthplace: argument['birthplace'],
+                gender: argument['gender'],
+                alamat: argument['alamat'],
+                rt: argument['rt'],
+                rw: argument['rw'],
+                kelurahan: argument['kelurahan'],
+                kecamatan: argument['kecamatan'],
+                agama: argument['agama'],
+              ),
+            );
           } else if (settings.name == '/help-file') {
             return RouteAnimations.slide(
                 settings,
@@ -73,6 +101,8 @@ Future<void> main() async {
           } else {
             // return RouteAnimations.slide(settings, const SplashScreen());
           }
+          return RouteAnimations.slide(
+              settings, const LoanVerificationFirstScreen());
           return RouteAnimations.slide(settings, const SplashScreen());
         },
       ),

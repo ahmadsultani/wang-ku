@@ -1,85 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/constants/styles.dart';
+import 'package:mobile/utils/route_argument.dart';
 import 'package:mobile/widgets/global_widgets.dart';
 
-class LoanVerificationFirstScreen extends StatefulWidget {
-  const LoanVerificationFirstScreen({super.key});
+class LoanVerificationThirdScreen extends StatefulWidget {
+  final String name;
+  final String birthplace;
+  final String gender;
+  final String alamat;
+  final String rt;
+  final String rw;
+  final String kelurahan;
+  final String kecamatan;
+  final String agama;
+  const LoanVerificationThirdScreen({
+    super.key,
+    required this.name,
+    required this.birthplace,
+    required this.gender,
+    required this.alamat,
+    required this.rt,
+    required this.rw,
+    required this.kelurahan,
+    required this.kecamatan,
+    required this.agama,
+  });
 
   @override
-  State<LoanVerificationFirstScreen> createState() =>
-      _LoanVerificationFirstScreenState();
+  State<LoanVerificationThirdScreen> createState() =>
+      _LoanVerificationThirdScreenState();
 }
 
-class _LoanVerificationFirstScreenState
-    extends State<LoanVerificationFirstScreen> {
-  late TextEditingController nameController;
-  late TextEditingController birthplaceController;
-  late TextEditingController genderController;
-//       File? _image;
-// final picker = ImagePicker();
-// //Image Picker function to get image from gallery
-// Future getImageFromGallery() async {
-//   final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
-//   setState(() {
-//     if (pickedFile != null) {
-//       _image = File(pickedFile.path);
-//     }
-//   });
-// }
-
-// //Image Picker function to get image from camera
-// Future getImageFromCamera() async {
-//   final pickedFile = await picker.pickImage(source: ImageSource.camera);
-
-//   setState(() {
-//     if (pickedFile != null) {
-//       _image = File(pickedFile.path);
-//     }
-//   });
-// }
-
-// Future showOptions() async {
-//   showCupertinoModalPopup(
-//     context: context,
-//     builder: (context) => CupertinoActionSheet(
-//       actions: [
-//         CupertinoActionSheetAction(
-//           child: Text('Photo Gallery'),
-//           onPressed: () {
-//             // close the options modal
-//             Navigator.of(context).pop();
-//             // get image from gallery
-//             getImageFromGallery();
-//           },
-//         ),
-//         CupertinoActionSheetAction(
-//           child: Text('Camera'),
-//           onPressed: () {
-//             // close the options modal
-//             Navigator.of(context).pop();
-//             // get image from camera
-//             getImageFromCamera();
-//           },
-//         ),
-//       ],
-//     ),
-//   );
-// }
+class _LoanVerificationThirdScreenState
+    extends State<LoanVerificationThirdScreen> {
+  late TextEditingController statusController;
+  late TextEditingController jobController;
+  late TextEditingController nationalityController;
 
   @override
   void initState() {
-    nameController = TextEditingController();
-    birthplaceController = TextEditingController();
-    genderController = TextEditingController();
+    statusController = TextEditingController();
+    jobController = TextEditingController();
+    nationalityController = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
-    nameController.dispose();
-    birthplaceController.dispose();
-    genderController.dispose();
+    statusController.dispose();
+    jobController.dispose();
+    nationalityController.dispose();
     super.dispose();
   }
 
@@ -136,7 +106,7 @@ class _LoanVerificationFirstScreenState
                     ),
                   ),
                   Text(
-                    '1/3',
+                    '3/3',
                     style: GlobalTextStyle.paragraph16,
                   ),
                 ],
@@ -169,37 +139,45 @@ class _LoanVerificationFirstScreenState
               ),
               const SizedBox(height: 24),
               CustomInputField(
-                label: 'Nama Lengkap',
-                hintText: 'Nurunnisa Fathanah',
-                enabled: false,
-                controller: nameController,
+                label: 'Status Perkawinan',
+                hintText: 'Belum Menikah',
+                controller: statusController,
               ),
               const SizedBox(height: 9),
               CustomInputField(
-                label: 'Tempat Lahir',
-                hintText: 'Makassar',
-                controller: birthplaceController,
+                label: 'Pekerjaan',
+                hintText: 'Pelajar/Mahasiswa',
+                controller: jobController,
               ),
               const SizedBox(height: 9),
               CustomInputField(
-                label: 'Jenis Kelamin',
-                hintText: 'Perempuan',
-                enabled: false,
-                controller: genderController,
+                label: 'Kewarganegaraan',
+                hintText: 'WNI',
+                controller: nationalityController,
               ),
               const SizedBox(height: 24),
               GlobalButton(
-                text: 'Selanjutnya',
+                text: 'Verifikasi',
                 onTap: () {
-                  Navigator.pushNamed(
+                  // TODO: ADD LOAN LOGIC
+                  Navigator.pushNamedAndRemoveUntil(
                     context,
-                    '/loan-second',
-                    arguments: {
-                      'name': nameController.text,
-                      'birthplace': birthplaceController.text,
-                      'gender': genderController.text,
-                    },
+                    '/confirmation',
+                    (route) => false,
+                    arguments: ConfirmationScreenArgument(
+                        'KTP-mu berhasil diverifkasi',
+                        'Kembali ke beranda',
+                        '/home'),
                   );
+                  // Navigator.pushNamed(
+                  //   context,
+                  //   '/loan-second',
+                  //   arguments: {
+                  //     'name': statusController.text,
+                  //     'birthplace': jobController.text,
+                  //     'gender': nationalityController.text,
+                  //   },
+                  // );
                 },
               ),
             ],
