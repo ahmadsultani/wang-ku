@@ -60,7 +60,6 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
     setState(() {
       gender = value!;
     });
-    print(gender);
   }
 
   DateTime? date;

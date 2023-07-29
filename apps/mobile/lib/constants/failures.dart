@@ -11,3 +11,7 @@ class NetworkFailure extends Failure {
 class RegisterFailure extends Failure {
   RegisterFailure(super.message);
 }
+
+class BusinessRegisterFailure extends Failure {
+  BusinessRegisterFailure(super.message);
+}

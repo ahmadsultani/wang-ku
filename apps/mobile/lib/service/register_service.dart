@@ -66,7 +66,6 @@ class RegisterService {
         'password': password,
       }),
     );
-    print(response.statusCode);
 
     if (response.statusCode == 200) {
       final SharedPreferences prefs = await SharedPreferences.getInstance();

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mobile/cubit/business_cubit.dart';
 import 'package:mobile/cubit/register_cubit.dart';
 import 'package:mobile/screens/confirmation_screen.dart';
 import 'package:mobile/screens/home/home_screen.dart';
@@ -24,14 +25,19 @@ Future<void> main() async {
   await dotenv.load();
 
   runApp(
-    BlocProvider(
-      create: (context) => RegisterCubit(),
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => RegisterCubit(),
+        ),
+        BlocProvider(
+          create: (context) => BusinessCubit(),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(fontFamily: GoogleFonts.poppins().fontFamily),
         onGenerateRoute: (settings) {
-          return RouteAnimations.slide(
-              settings, const LoanVerificationFirstScreen());
           if (settings.name == '/signup-first') {
             return RouteAnimations.slide(settings, const SignupFirstScreen());
           } else if (settings.name == '/signin') {
@@ -101,8 +107,6 @@ Future<void> main() async {
           } else {
             // return RouteAnimations.slide(settings, const SplashScreen());
           }
-          return RouteAnimations.slide(
-              settings, const LoanVerificationFirstScreen());
           return RouteAnimations.slide(settings, const SplashScreen());
         },
       ),

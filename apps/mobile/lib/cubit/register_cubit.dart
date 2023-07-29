@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:mobile/constants/failures.dart';
-import 'package:http/http.dart' as http;
 import 'package:mobile/service/register_service.dart';
 
 import '../entities/user.dart';
@@ -11,7 +10,6 @@ part 'register_state.dart';
 class RegisterCubit extends Cubit<RegisterState> {
   final InternetConnectionChecker _connectionChecker =
       InternetConnectionChecker.createInstance();
-  final client = http.Client();
   final service = RegisterService();
 
   RegisterCubit() : super(RegisterInitial());

@@ -269,7 +269,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
         const SizedBox(height: 4),
         DropdownButtonFormField<String>(
           hint: Text(
-            'Pilih jenis kelamin',
+            widget.items.first.value!,
             style: GlobalTextStyle.label16
                 .copyWith(color: GlobalColor.neutral[200]),
           ),
