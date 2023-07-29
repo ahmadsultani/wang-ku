@@ -1,4 +1,5 @@
 import { authPlugin } from '@wang-ku/api/features/auth';
+import { budgetRequestPlugin } from '@wang-ku/api/features/budget-request';
 import { businessPlugin } from '@wang-ku/api/features/business';
 import { userPlugin } from '@wang-ku/api/features/user';
 import * as SS from '@wang-ku/shared/schema';
@@ -54,6 +55,13 @@ export const appRoutes: FastifyPluginAsync = async (app) => {
   // User
   // -----------------------------------------------------
   app.register(userPlugin, {
+    prefix: API_PREFIX,
+  });
+
+  // -----------------------------------------------------
+  // Budget Request
+  // -----------------------------------------------------
+  app.register(budgetRequestPlugin, {
     prefix: API_PREFIX,
   });
 };

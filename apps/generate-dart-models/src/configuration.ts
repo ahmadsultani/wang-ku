@@ -1,5 +1,6 @@
 import {
   AuthSchema,
+  BudgetRequestCRUDSchema,
   BusinessCRUDSchema,
   UserCRUDSchema,
 } from '@wang-ku/shared/schema';
@@ -41,6 +42,7 @@ const Configurations: Config = {
     auth: AuthSchema,
     business: BusinessCRUDSchema,
     user: UserCRUDSchema,
+    budget_request: BudgetRequestCRUDSchema
   },
   models: [],
 };

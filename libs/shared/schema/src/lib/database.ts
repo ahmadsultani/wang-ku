@@ -53,10 +53,24 @@ export const UserVerification = Type.Object({
   birth_place: Type.String({ minLength: 1 }),
 });
 
+const StatusEnum = Type.Union([
+  Type.Literal('pending'),
+  Type.Literal('on_process'),
+  Type.Literal('approved'),
+  Type.Literal('denied'),
+]);
+export const BudgetRequest = Type.Object({
+  id: Type.String({ format: 'uuid' }),
+  business_id: Type.String({ format: 'uuid' }),
+  request_budget: Type.Number({ minimum: 0 }),
+  status: StatusEnum,
+});
+
 export const DbSchema = {
   users: Type.Intersect([User, TimestampColumn]),
   businesses: Type.Intersect([Business, TimestampColumn]),
   users_verifications: Type.Intersect([UserVerification, TimestampColumn]),
+  budget_requests: Type.Intersect([BudgetRequest, TimestampColumn]),
 };
 
 export type Db = RecursiveStatic<typeof DbSchema>;

@@ -6,6 +6,7 @@ export interface Database {
   users: UserTable;
   businesses: BusinessTable;
   users_verifications: UserVerificationTable;
+  budget_requests: BudgetRequestTable;
 }
 
 // -----------------------------------------------------
@@ -19,3 +20,6 @@ export type Businessses = Entity<BusinessTable>;
 
 type UserVerificationTable = Modify<Db['users_verifications'], DefaultAutoCols>;
 export type UsersVerifications = Entity<UserVerificationTable>;
+
+type BudgetRequestTable = Modify<Db['budget_requests'], DefaultAutoCols>;
+export type BudgetRequests = Entity<BudgetRequestTable>;

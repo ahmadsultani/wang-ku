@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import * as DB from '@wang-ku/api/database';
-import { Businessses, Database, Users } from '@wang-ku/api/database';
+import { Businessses, Database, Users, UsersVerifications } from '@wang-ku/api/database';
 import { Kysely } from 'kysely';
 
 export { faker } from '@faker-js/faker';
@@ -80,4 +80,15 @@ export function randomUserVerification(
     birth_place: faker.location.city(),
     ...overrides,
   };
+}
+
+export async function createRandomUserVerification(
+  db: Kysely<Database>,
+  overrides?: DB.UsersVerifications['update']
+): Promise<UsersVerifications['select']> {
+  return await db
+    .insertInto('users_verifications')
+    .values(randomUserVerification(overrides))
+    .returningAll()
+    .executeTakeFirstOrThrow();
 }

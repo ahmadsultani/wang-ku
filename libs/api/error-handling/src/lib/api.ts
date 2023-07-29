@@ -42,6 +42,7 @@ function parseStatusCode<E>(error: AppError<E>): number {
     'error: syntax error at or near',
     'is too large',
     'is wrong',
+    'verifikasi pengguna tidak ditemukan'
   ];
   if (badRequestKeywords.some((kw) => reason.includes(kw))) {
     return StatusCodes.BAD_REQUEST;

@@ -22,6 +22,9 @@
       ],
       "@wang-ku/api/error-handling": ["libs/api/error-handling/src/index.ts"],
       "@wang-ku/api/features/auth": ["libs/api/features/auth/src/index.ts"],
+      "@wang-ku/api/features/budget-request": [
+        "libs/api/features/budget-request/src/index.ts"
+      ],
       "@wang-ku/api/features/business": [
         "libs/api/features/business/src/index.ts"
       ],
