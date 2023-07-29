@@ -14,33 +14,24 @@ export async function read(
         .selectFrom('businesses')
         .where('user_id', '=', user.id ?? '')
         .selectAll()
-        .executeTakeFirstOrThrow();
-
-      // __AUTO_GENERATED_PRINTF_START__
-      console.log('read#(anon) 1'); // __AUTO_GENERATED_PRINTF_END__
+        .executeTakeFirst();
 
       const userVerification = await trx
         .selectFrom('users_verifications')
         .where('user_id', '=', user.id ?? '')
         .selectAll()
-        .executeTakeFirstOrThrow();
-
-      // __AUTO_GENERATED_PRINTF_START__
-      console.log('read#(anon) 2'); // __AUTO_GENERATED_PRINTF_END__
+        .executeTakeFirst();
 
       const { lended_total } = await trx
         .selectFrom('budget_requests')
-        .where('business_id', '=', business.id)
+        .where('business_id', '=', business ? business.id : null)
         .where('status', '=', 'approved')
         .select([sql<number>`sum(request_budget)`.as('lended_total')])
         .executeTakeFirstOrThrow();
 
-      // __AUTO_GENERATED_PRINTF_START__
-      console.log('read#(anon) 3'); // __AUTO_GENERATED_PRINTF_END__
-
       const lastRequest = await trx
         .selectFrom('budget_requests')
-        .where('business_id', '=', business.id)
+        .where('business_id', '=', business ? business.id : null)
         .select('status')
         .orderBy('updated_at', 'desc')
         .limit(1)
@@ -48,9 +39,11 @@ export async function read(
 
       return {
         lended_total,
-        lend_limit: business.lend_limit ?? 0,
-        monthly_spending: business.monthly_spending ?? 0,
-        monthly_income: business.monthly_income ?? 0,
+        lend_limit: business && business.lend_limit ? business.lend_limit : 0,
+        monthly_spending:
+          business && business.monthly_spending ? business.monthly_spending : 0,
+        monthly_income:
+          business && business.monthly_income ? business.monthly_income : 0,
         last_lend_status: lastRequest ? lastRequest.status : null,
         business: business ?? null,
         user_verification: userVerification ?? null,
