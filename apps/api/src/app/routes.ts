@@ -51,13 +51,6 @@ export const appRoutes: FastifyPluginAsync = async (app) => {
   });
 
   // -----------------------------------------------------
-  // Business
-  // -----------------------------------------------------
-  app.register(businessPlugin, {
-    prefix: API_PREFIX,
-  });
-
-  // -----------------------------------------------------
   // User
   // -----------------------------------------------------
   app.register(userPlugin, {
