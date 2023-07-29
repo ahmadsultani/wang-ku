@@ -3,14 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/cubit/register_cubit.dart';
+import 'package:mobile/screens/confirmation_screen.dart';
 import 'package:mobile/screens/home/home_screen.dart';
 import 'package:mobile/screens/network_error_screen.dart';
-import 'package:mobile/screens/register/signin_screen.dart';
-import 'package:mobile/screens/register/signup_first_screen.dart';
-import 'package:mobile/screens/register/signup_second_screen.dart';
-import 'package:mobile/screens/register/signup_third_screen.dart';
+import 'package:mobile/screens/register/business/help_file_screen.dart';
+import 'package:mobile/screens/register/business/register_business_screen.dart';
+import 'package:mobile/screens/register/user/signin_screen.dart';
+import 'package:mobile/screens/register/user/signup_first_screen.dart';
 import 'package:mobile/screens/splash_screens.dart';
 import 'package:mobile/utils/route_animations.dart';
+import 'package:mobile/utils/route_argument.dart';
+
+import 'screens/register/user/signup_second_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,14 +34,32 @@ Future<void> main() async {
           } else if (settings.name == '/signup-second') {
             final argument = settings.arguments as Map<String, dynamic>;
             return RouteAnimations.slide(
+              settings,
+              SignupSecondScreen(
+                name: argument['name'] as String,
+                email: argument['email'] as String,
+                password: argument['password'] as String,
+              ),
+            );
+          } else if (settings.name == '/register-business') {
+            return RouteAnimations.slide(
+                settings, const RegisterBusinessScreen());
+          } else if (settings.name == '/help-file') {
+            return RouteAnimations.slide(
                 settings,
-                SignupSecondScreen(
-                  name: argument['name'] as String,
-                  email: argument['email'] as String,
-                  password: argument['password'] as String,
+                HelpFileScreen(
+                  text: settings.arguments as String,
                 ));
-          } else if (settings.name == '/signup-third') {
-            return RouteAnimations.slide(settings, const SignupThirdScreen());
+          } else if (settings.name == '/confirmation') {
+            final argument = settings.arguments as ConfirmationScreenArgument;
+            return RouteAnimations.slide(
+              settings,
+              ConfirmationScreen(
+                information: argument.information,
+                hitText: argument.hitText,
+                pageDestination: argument.pageDestination,
+              ),
+            );
           } else if (settings.name == '/network-error') {
             return RouteAnimations.slide(settings, const NetworkErrorScreen());
           } else if (settings.name == '/home') {

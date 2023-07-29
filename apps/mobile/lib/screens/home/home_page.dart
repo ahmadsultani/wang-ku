@@ -165,7 +165,7 @@ class HomePage extends StatelessWidget {
                   GlobalButton(
                       text: "Daftar Sekarang",
                       onTap: () {
-                        Navigator.pushNamed(context, '/home');
+                        Navigator.pushNamed(context, '/register-business');
                       },
                       width: MediaQuery.of(context).size.width / 2)
                 ],

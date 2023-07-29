@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/constants/snackbar.dart';
 import 'package:mobile/constants/styles.dart';
 
-import '../../widgets/global_widgets.dart';
+import '../../../widgets/global_widgets.dart';
 
 class SignupFirstScreen extends StatefulWidget {
   const SignupFirstScreen({super.key});

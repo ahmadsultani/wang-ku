@@ -7,9 +7,11 @@ class CustomInputField extends StatefulWidget {
   final String hintText;
   final bool obscureText;
   final String additionalLabel;
+  final bool additionaLabelGreen;
   final TextEditingController controller;
   final bool number;
   final bool submit;
+  final void Function()? onAdditionalLabelTap;
 
   const CustomInputField({
     super.key,
@@ -20,6 +22,7 @@ class CustomInputField extends StatefulWidget {
     required this.controller,
     this.number = false,
     this.submit = false,
+    this.additionaLabelGreen = false, this.onAdditionalLabelTap,
   });
 
   @override
@@ -55,13 +58,16 @@ class _CustomInputFieldState extends State<CustomInputField> {
               ),
             ),
             widget.additionalLabel.isNotEmpty
-                ? Text(
-                    widget.additionalLabel,
-                    style: GlobalTextStyle.label12.copyWith(
-                      fontWeight: FontWeight.w500,
-                      color: GlobalColor.neutral[500],
+                ? GestureDetector(
+                  onTap: widget.onAdditionalLabelTap,
+                  child: Text(
+                      widget.additionalLabel,
+                      style: GlobalTextStyle.label12.copyWith(
+                        fontWeight: FontWeight.w500,
+                        color: widget.additionaLabelGreen ? GlobalColor.primary : GlobalColor.neutral[500],
+                      ),
                     ),
-                  )
+                )
                 : const SizedBox(),
           ],
         ),
@@ -318,8 +324,10 @@ class GlobalButton extends StatelessWidget {
 }
 
 class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final String text;
   const GlobalAppBar({
     super.key,
+    required this.text,
   });
 
   @override
@@ -335,7 +343,7 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       centerTitle: true,
       title: Text(
-        'Pendaftaran Usaha',
+        text,
         style: GlobalTextStyle.paragraph18.copyWith(
           fontWeight: FontWeight.w500,
           color: const Color(0xFFFFFFFF),

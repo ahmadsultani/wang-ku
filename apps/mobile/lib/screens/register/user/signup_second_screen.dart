@@ -3,8 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile/constants/snackbar.dart';
 import 'package:mobile/constants/styles.dart';
 import 'package:mobile/cubit/register_cubit.dart';
+import 'package:mobile/utils/route_argument.dart';
 
-import '../../widgets/global_widgets.dart';
+import '../../../widgets/global_widgets.dart';
 
 class SignupSecondScreen extends StatefulWidget {
   final String name;
@@ -167,7 +168,11 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       Navigator.pushNamedAndRemoveUntil(
                         context,
-                        '/signup-third',
+                        '/confirmation',
+                        arguments: ConfirmationScreenArgument(
+                            'Akunmu berhasil didaftarkan.',
+                            'Masuk sekarang',
+                            '/signin'),
                         (route) => false,
                       );
                     } else if (state is RegisterSignUpFailed) {

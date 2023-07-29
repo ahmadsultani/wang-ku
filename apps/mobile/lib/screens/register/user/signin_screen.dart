@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/constants/styles.dart';
 
-import '../../widgets/global_widgets.dart';
+import '../../../widgets/global_widgets.dart';
 
 class SigninScreen extends StatefulWidget {
   const SigninScreen({super.key});
