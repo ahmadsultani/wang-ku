@@ -1,4 +1,5 @@
 import { authPlugin } from '@wang-ku/api/features/auth';
+import { businessPlugin } from '@wang-ku/api/features/business';
 import * as SS from '@wang-ku/shared/schema';
 import {
   FastifyError,
@@ -39,5 +40,12 @@ export const appRoutes: FastifyPluginAsync = async (app) => {
     verify: {
       maxAge: '30d',
     },
+  });
+
+  // -----------------------------------------------------
+  // Business
+  // -----------------------------------------------------
+  app.register(businessPlugin, {
+    prefix: API_PREFIX,
   });
 };

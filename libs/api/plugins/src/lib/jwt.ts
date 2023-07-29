@@ -63,7 +63,7 @@ export const protect: FastifyPluginAsync = fp(async (fastify, _) => {
       .selectAll()
       .where('id', '=', `${request.user.id}`)
       .executeTakeFirst();
-    if (existUser) {
+    if (!existUser) {
       const appError: AppError<undefined> = {
         message: 'Failed to verify your authentication token!',
         reason: ReasonPhrases.UNAUTHORIZED,

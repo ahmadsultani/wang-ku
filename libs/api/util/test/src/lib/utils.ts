@@ -72,7 +72,6 @@ export async function buildApp(
     app.register(r.route, {
       ...jwt,
       prefix: r.path,
-      bucket: process.env['STORAGE_BUCKET'] ?? '',
     });
   });
 
