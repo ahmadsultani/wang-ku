@@ -6,6 +6,7 @@ import 'package:mobile/widgets/global_widgets.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
+  final bool isPengusaha = true;
 
   @override
   Widget build(BuildContext context) {
@@ -143,40 +144,84 @@ class HomePage extends StatelessWidget {
                     ],
                   ),
                 ),
-              ),
+              )
             ],
           ),
-          Expanded(
-            child: SizedBox(
-              width: double.infinity,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Image(
-                    image: AssetImage('assets/images/home_hero.png'),
-                    width: 214,
+          if (isPengusaha)
+            Stack(
+              children: [
+                // Image.asset(
+                //   'assets/icons/double_wallet.png',
+                //   width: 90,
+                // ),
+                Container(
+                  margin: const EdgeInsets.only(top: 32),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.bottomRight,
+                          end: Alignment.topLeft,
+                          colors: [
+                            GlobalColor.primary,
+                            GlobalColor.neutral[100]!
+                          ]),
+                      border: Border.all(color: GlobalColor.primary),
+                      borderRadius: BorderRadius.circular(4)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                          'Ajukan Pinjaman hingga 500.000.000 dan kembangkan usahamu.',
+                          textAlign: TextAlign.right,
+                          style: GlobalTextStyle.paragraph18.copyWith(
+                              fontWeight: FontWeight.w700,
+                              color: const Color(0xFFFFFFFF))),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      GlobalButton(
+                          text: 'Verifikasi',
+                          secondary: true,
+                          onTap: () =>
+                              Navigator.pushNamed(context, '/loan-first'))
+                    ],
                   ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Text(
-                    'Kamu belum mendaftarkan usahamu nih.',
-                    style: GlobalTextStyle.paragraph12,
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  GlobalButton(
-                      text: "Daftar Sekarang",
-                      onTap: () {
-                        Navigator.pushNamed(context, '/register-business');
-                      },
-                      width: MediaQuery.of(context).size.width / 2)
-                ],
+                ),
+              ],
+            )
+          else
+            Expanded(
+              child: SizedBox(
+                width: double.infinity,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Image(
+                      image: AssetImage('assets/images/home_hero.png'),
+                      width: 214,
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Text(
+                      'Kamu belum mendaftarkan usahamu nih.',
+                      style: GlobalTextStyle.paragraph12,
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    GlobalButton(
+                        text: "Daftar Sekarang",
+                        onTap: () {
+                          Navigator.pushNamed(context, '/register-business');
+                        },
+                        width: MediaQuery.of(context).size.width / 2)
+                  ],
+                ),
               ),
-            ),
-          )
+            )
         ],
       ),
     );
