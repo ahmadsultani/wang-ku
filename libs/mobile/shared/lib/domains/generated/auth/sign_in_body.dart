@@ -1,15 +1,15 @@
 import 'package:shared/shared.dart';
 
+
 part 'sign_in_body.freezed.dart';
 part 'sign_in_body.g.dart';
 
 @freezed
 class SignInBody with _$SignInBody {
-  const factory SignInBody({
+    const factory SignInBody({
     required String email,
     required String password,
-  }) = _SignInBody;
+    }) = _SignInBody;
 
-  factory SignInBody.fromJson(Map<String, dynamic> json) =>
-      _$SignInBodyFromJson(json);
+    factory SignInBody.fromJson(Map<String, dynamic> json) => _$SignInBodyFromJson(json);
 }

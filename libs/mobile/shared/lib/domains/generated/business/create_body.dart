@@ -1,11 +1,12 @@
 import 'package:shared/shared.dart';
 
+
 part 'create_body.freezed.dart';
 part 'create_body.g.dart';
 
 @freezed
 class CreateBody with _$CreateBody {
-  const factory CreateBody({
+    const factory CreateBody({
     required String address,
     required String category,
     double? lendLimit,
@@ -15,8 +16,7 @@ class CreateBody with _$CreateBody {
     required String nib,
     required String npwp,
     String? phoneNumber,
-  }) = _CreateBody;
+    }) = _CreateBody;
 
-  factory CreateBody.fromJson(Map<String, dynamic> json) =>
-      _$CreateBodyFromJson(json);
+    factory CreateBody.fromJson(Map<String, dynamic> json) => _$CreateBodyFromJson(json);
 }

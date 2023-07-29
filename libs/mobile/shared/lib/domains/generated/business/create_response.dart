@@ -1,21 +1,21 @@
 import 'package:shared/shared.dart';
 
+
 part 'create_response.freezed.dart';
 part 'create_response.g.dart';
 
 @freezed
 class CreateResponse with _$CreateResponse {
-  const factory CreateResponse({
+    const factory CreateResponse({
     required CreateResponseData data,
-  }) = _CreateResponse;
+    }) = _CreateResponse;
 
-  factory CreateResponse.fromJson(Map<String, dynamic> json) =>
-      _$CreateResponseFromJson(json);
+    factory CreateResponse.fromJson(Map<String, dynamic> json) => _$CreateResponseFromJson(json);
 }
 
 @freezed
 class CreateResponseData with _$CreateResponseData {
-  const factory CreateResponseData({
+    const factory CreateResponseData({
     required String address,
     required String category,
     required int createdAt,
@@ -32,8 +32,7 @@ class CreateResponseData with _$CreateResponseData {
     required String userId,
     required String userName,
     required String userPhoneNumber,
-  }) = _CreateResponseData;
+    }) = _CreateResponseData;
 
-  factory CreateResponseData.fromJson(Map<String, dynamic> json) =>
-      _$CreateResponseDataFromJson(json);
+    factory CreateResponseData.fromJson(Map<String, dynamic> json) => _$CreateResponseDataFromJson(json);
 }

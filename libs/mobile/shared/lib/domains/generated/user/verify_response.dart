@@ -1,21 +1,21 @@
 import 'package:shared/shared.dart';
 
+
 part 'verify_response.freezed.dart';
 part 'verify_response.g.dart';
 
 @freezed
 class VerifyResponse with _$VerifyResponse {
-  const factory VerifyResponse({
+    const factory VerifyResponse({
     required VerifyResponseData data,
-  }) = _VerifyResponse;
+    }) = _VerifyResponse;
 
-  factory VerifyResponse.fromJson(Map<String, dynamic> json) =>
-      _$VerifyResponseFromJson(json);
+    factory VerifyResponse.fromJson(Map<String, dynamic> json) => _$VerifyResponseFromJson(json);
 }
 
 @freezed
 class VerifyResponseData with _$VerifyResponseData {
-  const factory VerifyResponseData({
+    const factory VerifyResponseData({
     required String birthPlace,
     required int createdAt,
     required String id,
@@ -23,8 +23,7 @@ class VerifyResponseData with _$VerifyResponseData {
     String? picture,
     required int updatedAt,
     required String userId,
-  }) = _VerifyResponseData;
+    }) = _VerifyResponseData;
 
-  factory VerifyResponseData.fromJson(Map<String, dynamic> json) =>
-      _$VerifyResponseDataFromJson(json);
+    factory VerifyResponseData.fromJson(Map<String, dynamic> json) => _$VerifyResponseDataFromJson(json);
 }

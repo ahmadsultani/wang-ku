@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/cubit/business_cubit.dart';
+import 'package:mobile/cubit/profile_cubit.dart';
 import 'package:mobile/cubit/register_cubit.dart';
 import 'package:mobile/screens/confirmation_screen.dart';
 import 'package:mobile/screens/home/home_screen.dart';
@@ -19,6 +20,7 @@ import 'package:mobile/screens/splash_screens.dart';
 import 'package:mobile/utils/route_animations.dart';
 import 'package:mobile/utils/route_argument.dart';
 
+import 'cubit/loan_cubit.dart';
 import 'screens/register/user/signup_second_screen.dart';
 
 Future<void> main() async {
@@ -30,6 +32,12 @@ Future<void> main() async {
       providers: [
         BlocProvider(
           create: (context) => RegisterCubit(),
+        ),
+        BlocProvider(
+          create: (context) => ProfileCubit(),
+        ),
+        BlocProvider(
+          create: (context) => LoanCubit(),
         ),
         BlocProvider(
           create: (context) => BusinessCubit(),
