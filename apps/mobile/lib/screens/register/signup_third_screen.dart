@@ -33,6 +33,7 @@ class SignupThirdScreen extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 Navigator.pushNamed(context, '/signin');
+                Navigator.pushNamedAndRemoveUntil(context, '/signin', (route) => false,);
               },
               child: Text(
                 'Masuk Sekarang',

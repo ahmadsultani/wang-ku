@@ -9,22 +9,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: AppBar(
-        backgroundColor: GlobalColor.primary,
-        elevation: 0,
-        title: Text(
-          'Beranda',
-          style: GlobalTextStyle.heading3.copyWith(
-              fontWeight: FontWeight.w700, color: const Color(0xFFFFFFFF)),
-        ),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/profile');
-              },
-              icon: const Icon(Icons.person))
-        ],
-      ),
+      appBar: GlobalAppBar(),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
@@ -154,6 +139,7 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: GlobalColor.primary,
         currentIndex: 0,
         onTap: (index) {
           if (index == 1) {
@@ -162,7 +148,7 @@ class HomeScreen extends StatelessWidget {
         },
         items: [
           BottomNavigationBarItem(
-               icon: Icon(Icons.home_outlined), label: 'Beranda'),
+              icon: Icon(Icons.home_outlined), label: 'Beranda'),
           BottomNavigationBarItem(
               icon: Icon(Icons.person_outline), label: 'Profil'),
         ],

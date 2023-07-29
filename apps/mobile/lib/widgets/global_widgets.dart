@@ -106,7 +106,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
 
 class CustomDateField extends StatefulWidget {
   final void Function(DateTime newDate) onChange;
-  DateTime? date;
+  final DateTime? date;
 
   CustomDateField({
     super.key,
@@ -119,6 +119,8 @@ class CustomDateField extends StatefulWidget {
 }
 
 class _CustomDateFieldState extends State<CustomDateField> {
+  DateTime? date;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -141,14 +143,16 @@ class _CustomDateFieldState extends State<CustomDateField> {
         const SizedBox(height: 4),
         GestureDetector(
           onTap: () async {
-            widget.date = await showDatePicker(
+            date = await showDatePicker(
               context: context,
               initialDate: DateTime.now(),
               firstDate: DateTime(900),
               lastDate: DateTime(2050),
             );
-            widget.onChange(widget.date!);
-            setState(() {});
+            if (date != null) {
+              widget.onChange(date!);
+              setState(() {});
+            }
           },
           child: Container(
             height: 46,
@@ -162,14 +166,14 @@ class _CustomDateFieldState extends State<CustomDateField> {
             ),
             child: Row(
               children: [
-                widget.date == null
+                date == null
                     ? Text(
                         'dd-mm-yy',
                         style: GlobalTextStyle.label16
                             .copyWith(color: GlobalColor.neutral[200]),
                       )
                     : Text(
-                        DateFormat('dd-MM-yyyy').format(widget.date!),
+                        DateFormat('dd-MM-yyyy').format(date!),
                         style: GlobalTextStyle.label16,
                       ),
                 const Expanded(child: SizedBox()),
@@ -184,11 +188,11 @@ class _CustomDateFieldState extends State<CustomDateField> {
 }
 
 class CustomDropDown extends StatefulWidget {
-  String? text;
+  final String? text;
   final List<DropdownMenuItem<String>> items;
   final void Function(String? value) onChange;
 
-  CustomDropDown({
+  const CustomDropDown({
     super.key,
     required this.text,
     required this.onChange,
@@ -300,4 +304,36 @@ class GlobalButton extends StatelessWidget {
       ),
     );
   }
+}
+
+class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const GlobalAppBar({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      backgroundColor: GlobalColor.primary,
+      elevation: 0,
+      leading: IconButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        icon: const Icon(Icons.arrow_back_ios_new),
+      ),
+      centerTitle: true,
+      title: Text(
+        'Pendaftaran Usaha',
+        style: GlobalTextStyle.paragraph18.copyWith(
+          fontWeight: FontWeight.w500,
+          color: const Color(0xFFFFFFFF),
+        ),
+      ),
+    );
+  }
+
+  @override
+  // TODO: implement preferredSize
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

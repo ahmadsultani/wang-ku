@@ -80,7 +80,7 @@ class _SigninScreenState extends State<SigninScreen> {
               GlobalButton(
                 text: 'Masuk',
                 onTap: () {
-                  Navigator.pushNamed(context, '/home');
+                  Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
                 },
               ),
               const SizedBox(height: 8),
