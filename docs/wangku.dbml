@@ -1,0 +1,71 @@
+Project WangKu {
+  database_type: 'PostgreSQL'
+  Note: '''
+    # WangKu Database
+  '''
+}
+
+Table users {
+  id uuid [pk, not null]
+  name varchar [not null]
+  email varchar [not null, unique]
+  password text [not null]
+  phone_number varchar [not null]
+  gender EnumGenders [not null]
+  birth_date bigint [not null]
+  picture text
+}
+
+Table users_verifications {
+  id uuid [pk, not null]
+  user_id uuid [ref: - users.id, not null]
+  ktp_picture text [not null]
+  nik varchar [not null]
+  birth_place varchar [not null]
+  address varchar [not null]
+}
+
+Table businesses {
+  id uuid [pk, not null]
+  user_id uuid [ref: - users.id, not null]
+  name varchar [not null]
+  category EnumCategory [not null]
+  npwp varchar [not null]
+  nib varchar [not null]
+  lend_limit bigint
+  address varchar [not null]
+  phone_number varchar
+  monthly_spending bigint
+  monthly_income bigint
+}
+
+Table budget_requests {
+  id uuid [pk, not null]
+  business_id uuid [ref: < businesses.id, not null]
+  request_budget bigint [not null]
+  status EnumBudgetRequestStatus [not null]
+  created_at  bigint [not null]
+  updated_at  bigint [not null]
+}
+
+enum EnumGenders {
+  male
+  female
+}
+
+enum EnumCategory {
+  wholesale
+  material
+  manufacture
+  food_and_beverage
+  business_service
+  hardware
+  others
+}
+
+enum EnumBudgetRequestStatus {
+  pending
+  on_process
+  approved
+  denied
+}
