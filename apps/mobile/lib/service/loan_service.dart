@@ -7,19 +7,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants/failures.dart';
 
-class BusinessService {
+class LoanService {
   final client = http.Client();
-
-  Future<Either<Failure, void>> registerBusiness(
-    String name,
-    String category,
-    String npwp,
-    String nib,
-    String lendLimit,
-    String address,
-    String phoneNumber,
-    String monthlySpending,
-    String monthlyIncome,
+  
+  Future<Either<Failure, void>> registerLoan(
+    int requestBudget,
+    String accountNumber,
+    String bank,
   ) async {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       final token = prefs.get('token');
@@ -31,15 +25,9 @@ class BusinessService {
         "Authorization": "Bearer $token",
       },
       body: jsonEncode({
-          'name': name,
-          'category': category,
-          'npwp': npwp,
-          'nib': nib,
-          'lend_limit': lendLimit,
-          'address': address,
-          'phone_number': phoneNumber,
-          'monthly_spending': monthlySpending,
-          'monthly_income': monthlyIncome,
+        'request_budget': requestBudget,
+        'account_number': accountNumber,
+        'bank': bank,
       }),
     );
     if (response.statusCode == 201) {
