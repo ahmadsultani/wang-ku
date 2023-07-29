@@ -42,17 +42,28 @@ export async function verify(
   user: User
 ): Promise<AppResult<UserCRUD['verify']['response']>> {
   try {
-    const user_verification = await db
-      .insertInto('users_verifications')
-      .values({
-        user_id: user.id ?? '',
-        ...insertRecord,
-      })
-      .returningAll()
-      .executeTakeFirstOrThrow();
+    const data = await db.transaction().execute(async (trx) => {
+      const user_verification = await trx
+        .insertInto('users_verifications')
+        .values({
+          user_id: user.id ?? '',
+          ...insertRecord,
+        })
+        .returningAll()
+        .executeTakeFirstOrThrow();
+
+      await trx
+        .updateTable('businesses')
+        .where('user_id', '=', user.id ?? '')
+        .set({
+          lend_limit: 100_000_000,
+        })
+        .execute();
+      return user_verification;
+    });
 
     return R.Ok({
-      data: user_verification,
+      data,
     });
   } catch (err) {
     return R.Error(toAppError(err));

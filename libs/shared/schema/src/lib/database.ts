@@ -53,7 +53,7 @@ export const UserVerification = Type.Object({
   birth_place: Type.String({ minLength: 1 }),
 });
 
-const StatusEnum = Type.Union([
+export const StatusEnum = Type.Union([
   Type.Literal('pending'),
   Type.Literal('on_process'),
   Type.Literal('approved'),

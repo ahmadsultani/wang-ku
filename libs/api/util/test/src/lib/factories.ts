@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import * as DB from '@wang-ku/api/database';
-import { Businessses, Database, Users, UsersVerifications } from '@wang-ku/api/database';
+import { BudgetRequests, Businessses, Database, Users, UsersVerifications } from '@wang-ku/api/database';
 import { Kysely } from 'kysely';
 
 export { faker } from '@faker-js/faker';
@@ -89,6 +89,28 @@ export async function createRandomUserVerification(
   return await db
     .insertInto('users_verifications')
     .values(randomUserVerification(overrides))
+    .returningAll()
+    .executeTakeFirstOrThrow();
+}
+
+export function randomBudgetRequest(
+  overrides?: DB.BudgetRequests['update']
+): DB.BudgetRequests['insert'] {
+  return {
+    request_budget: faker.number.int({ max: 20_000_000 }),
+    status: 'pending',
+    business_id: '',
+    ...overrides,
+  };
+}
+
+export async function createRandomBudgetRequest(
+  db: Kysely<Database>,
+  overrides?: DB.BudgetRequests['update']
+): Promise<BudgetRequests['select']> {
+  return await db
+    .insertInto('budget_requests')
+    .values(randomBudgetRequest(overrides))
     .returningAll()
     .executeTakeFirstOrThrow();
 }
