@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/cubit/register_cubit.dart';
 import 'package:mobile/screens/confirmation_screen.dart';
 import 'package:mobile/screens/home/home_screen.dart';
+import 'package:mobile/screens/loan/loan_verification_first_screen.dart';
 import 'package:mobile/screens/network_error_screen.dart';
 import 'package:mobile/screens/register/business/help_file_screen.dart';
 import 'package:mobile/screens/register/business/register_business_screen.dart';
@@ -27,6 +28,8 @@ Future<void> main() async {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(fontFamily: GoogleFonts.poppins().fontFamily),
         onGenerateRoute: (settings) {
+          return RouteAnimations.slide(
+              settings, const LoanVerificationFirstScreen());
           if (settings.name == '/signup-first') {
             return RouteAnimations.slide(settings, const SignupFirstScreen());
           } else if (settings.name == '/signin') {
@@ -44,6 +47,9 @@ Future<void> main() async {
           } else if (settings.name == '/register-business') {
             return RouteAnimations.slide(
                 settings, const RegisterBusinessScreen());
+          } else if (settings.name == '/loan-first') {
+            return RouteAnimations.slide(
+                settings, const LoanVerificationFirstScreen());
           } else if (settings.name == '/help-file') {
             return RouteAnimations.slide(
                 settings,
