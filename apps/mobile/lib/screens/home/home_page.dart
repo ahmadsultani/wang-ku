@@ -7,7 +7,7 @@ import 'package:mobile/widgets/global_widgets.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
   final bool isPengusaha = true;
-  final bool isVerified = false;
+  final bool isVerified = true;
 
   @override
   Widget build(BuildContext context) {
