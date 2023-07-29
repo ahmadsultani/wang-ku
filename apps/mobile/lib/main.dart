@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mobile/screens/home_screen.dart';
+import 'package:mobile/screens/home/home_screen.dart';
 import 'package:mobile/screens/network_error_screen.dart';
 import 'package:mobile/screens/register/signin_screen.dart';
 import 'package:mobile/screens/register/signup_first_screen.dart';
