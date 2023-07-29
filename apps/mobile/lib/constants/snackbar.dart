@@ -22,30 +22,31 @@ class AlertSnackBar extends StatelessWidget {
     );
   }
 }
+
 SnackBar alertSnackBar(String text) {
   return SnackBar(
-      content: Text(
-        text,
-        style: GlobalTextStyle.paragraph14.copyWith(
-          color: Colors.white,
-          fontSize: 14,
-        ),
+    content: Text(
+      text,
+      style: GlobalTextStyle.paragraph14.copyWith(
+        color: Colors.white,
+        fontSize: 14,
       ),
-      backgroundColor: Colors.red,
-    );
+    ),
+    backgroundColor: Colors.red,
+  );
 }
 
 SnackBar successSnackBar(String text) {
   return SnackBar(
-      content: Text(
-        text,
-        style: GlobalTextStyle.paragraph14.copyWith(
-          color: Colors.white,
-          fontSize: 14,
-        ),
+    content: Text(
+      text,
+      style: GlobalTextStyle.paragraph14.copyWith(
+        color: Colors.white,
+        fontSize: 14,
       ),
-      backgroundColor: Colors.red,
-    );
+    ),
+    backgroundColor: Colors.green,
+  );
 }
 
 class SuccessSnackBar extends StatelessWidget {

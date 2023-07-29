@@ -19,22 +19,27 @@ class RegisterService {
     String gender,
   ) async {
     // TODO: HIT API
-    final response = await client
-        .get(
-          Uri.parse('${dotenv.env['API_URL']}'),
-          //   headers: {
-          //   "content-type": "application/json",
-          // },
-          // body: jsonEncode({
-          //   'name': name,
-          //   'email': email,
-          //   'password': password,
-          //   'gender': gender,
-          //   'phone_number': phoneNumber,
-          //   'birth_date': birthdate,
-          //   'picture': '',
-          // }),
-        );
+    if (gender == "Laki-laki") {
+      gender = "male";
+    } else {
+      gender = 'female';
+    }
+    final response = await client.post(
+      Uri.parse('${dotenv.env['API_URL']}auth/sign-up'),
+      headers: {
+        "content-type": "application/json",
+        "accept": "application/json",
+      },
+      body: jsonEncode({
+        'name': name,
+        'email': email,
+        'password': password,
+        'gender': gender,
+        'phone_number': phoneNumber,
+        'birth_date': birthdate,
+        'picture': '',
+      }),
+    );
 
     if (response.statusCode == 201) {
       return const Right(null);
