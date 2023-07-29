@@ -79,7 +79,9 @@ class _SigninScreenState extends State<SigninScreen> {
               const SizedBox(height: 16),
               GlobalButton(
                 text: 'Masuk',
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, '/home');
+                },
               ),
               const SizedBox(height: 8),
               Row(

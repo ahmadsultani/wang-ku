@@ -3,21 +3,23 @@ import 'package:google_fonts/google_fonts.dart';
 
 class GlobalTextStyle {
   static final TextStyle heading1 = GoogleFonts.poppins(
-      fontWeight: FontWeight.w400, fontSize: 44, height: 1.31);
+      fontWeight: FontWeight.w500, fontSize: 44, height: 1.31);
   static final TextStyle heading2 = GoogleFonts.poppins(
-      fontWeight: FontWeight.w400, fontSize: 36, height: 1.27);
+      fontWeight: FontWeight.w500, fontSize: 36, height: 1.27);
   static final TextStyle heading3 = GoogleFonts.poppins(
-      fontWeight: FontWeight.w400, fontSize: 28, height: 1.35);
+      fontWeight: FontWeight.w500, fontSize: 28, height: 1.35);
   static final TextStyle heading4 = GoogleFonts.poppins(
       fontWeight: FontWeight.w500, fontSize: 24, height: 1.33);
   static final TextStyle heading5 = GoogleFonts.poppins(
       fontWeight: FontWeight.w500, fontSize: 20, height: 1.3);
   static final TextStyle paragraph18 = GoogleFonts.poppins(
-      fontWeight: FontWeight.w400, fontSize: 18, height: 1.5);
+      fontWeight: FontWeight.w500, fontSize: 18, height: 1.5);
   static final TextStyle paragraph16 = GoogleFonts.poppins(
-      fontWeight: FontWeight.w400, fontSize: 16, height: 1.5);
+      fontWeight: FontWeight.w500, fontSize: 16, height: 1.5);
   static final TextStyle paragraph14 = GoogleFonts.poppins(
-      fontWeight: FontWeight.w400, fontSize: 14, height: 1.5);
+      fontWeight: FontWeight.w500, fontSize: 14, height: 1.5);
+  static final TextStyle paragraph12 = GoogleFonts.poppins(
+      fontWeight: FontWeight.w500, fontSize: 12, height: 1.5);
   static final TextStyle label18 = GoogleFonts.poppins(
       fontWeight: FontWeight.w500, fontSize: 18, height: 1.25);
   static final TextStyle label16 = GoogleFonts.poppins(
@@ -58,7 +60,7 @@ abstract final class GlobalColor {
   });
 
   // primary
-  static const int _defaultPrimary = 0xFF2ABE60;
+  static const int _defaultPrimary = 0xFF00B140;
   static MaterialColor primary =
       const MaterialColor(_defaultPrimary, <int, Color>{
     50: Color(0xFFCCEFD9),
@@ -66,7 +68,7 @@ abstract final class GlobalColor {
     200: Color(0xFF80D89F),
     300: Color(0xFF55CB80),
     400: Color(0xFF2ABE60),
-    500: Color(0xFF00B140),
+    500: Color(_defaultPrimary),
     600: Color(0xFF00762B),
     700: Color(0xFF208746),
     800: Color(0xFF005820),

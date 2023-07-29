@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mobile/screens/home_screen.dart';
 import 'package:mobile/screens/network_error_screen.dart';
 import 'package:mobile/screens/register/signin_screen.dart';
 import 'package:mobile/screens/register/signup_first_screen.dart';
@@ -32,6 +33,8 @@ void main() {
           return RouteAnimations.slide(settings, const SignupThirdScreen());
         } else if (settings.name == '/network-error') {
           return RouteAnimations.slide(settings, const NetworkErrorScreen());
+        } else if (settings.name == '/home') {
+          return RouteAnimations.slide(settings, const HomeScreen());
         } else {
           // return RouteAnimations.slide(settings, const SplashScreen());
         }
