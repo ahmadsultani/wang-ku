@@ -25,6 +25,7 @@
       "@wang-ku/api/features/business": [
         "libs/api/features/business/src/index.ts"
       ],
+      "@wang-ku/api/features/user": ["libs/api/features/user/src/index.ts"],
       "@wang-ku/api/plugins": ["libs/api/plugins/src/index.ts"],
       "@wang-ku/api/util/test": ["libs/api/util/test/src/index.ts"],
       "@wang-ku/shared/schema": ["libs/shared/schema/src/index.ts"]

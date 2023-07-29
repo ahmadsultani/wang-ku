@@ -4,3 +4,4 @@ export * from './lib/business-crud.schema';
 export * from './lib/database';
 export * from './lib/generics';
 export * from './lib/security';
+export * from './lib/user-crud.schema';

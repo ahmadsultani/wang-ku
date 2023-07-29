@@ -81,7 +81,6 @@ build_app=$2                        # owner | installer
 build_nx_project=$2                 # mobile | installer
 build_type=$3                       # ipa | apk | appbundle
 build_env=$4                        # dev | stag | uat | prod
-build_name="com.supremesolar.$2.$4" # example: com.supremesolar.owner.stag
 
 build_flutter() {
   if [ $build_app == "owner" ]; then
@@ -113,13 +112,8 @@ move_artefact() {
     build_env_release="prodRelease"
   fi
 
-  if [ "$build_type" == "ipa" ]; 
+  if [ "$build_type" == "ipa" ];
     then
-      if [ $build_app == "owner" ]; then
-        build_source="build/ios/ipa/Supreme Solar.ipa"
-      else
-        build_source="build/ios/ipa/Supreme Installer.ipa"
-      fi
     build_target="../../dist/mobile/$build_name.ipa"
     build_archive_target="../../dist/mobile/${build_name}.xcarchive"
     build_archive_source="build/ios/archive/Runner.xcarchive"
@@ -132,14 +126,14 @@ move_artefact() {
   fi
 
   mkdir -p $(dirname "$build_target")
-  
+
   # Move build app android or iOS
   echo "mv $build_source $build_target" &&
   mv "$build_source" "$build_target" &&
   echo "\n\xE2\x9C\x93  $(tput setaf 2)Moved to $build_target$(tput sgr0)"
-  
+
   # Move build app archive iOS
-  if [ ! -z "$build_archive_source" ] && [ ! -z "$build_archive_target" ]; then  
+  if [ ! -z "$build_archive_source" ] && [ ! -z "$build_archive_target" ]; then
     rm -rf "$build_archive_target" &&
     echo "\n\nmv $build_source $build_target" &&
     mv "$build_archive_source" "$build_archive_target" &&

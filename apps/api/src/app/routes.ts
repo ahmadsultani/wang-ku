@@ -1,5 +1,6 @@
 import { authPlugin } from '@wang-ku/api/features/auth';
 import { businessPlugin } from '@wang-ku/api/features/business';
+import { userPlugin } from '@wang-ku/api/features/user';
 import * as SS from '@wang-ku/shared/schema';
 import {
   FastifyError,
@@ -46,6 +47,20 @@ export const appRoutes: FastifyPluginAsync = async (app) => {
   // Business
   // -----------------------------------------------------
   app.register(businessPlugin, {
+    prefix: API_PREFIX,
+  });
+
+  // -----------------------------------------------------
+  // Business
+  // -----------------------------------------------------
+  app.register(businessPlugin, {
+    prefix: API_PREFIX,
+  });
+
+  // -----------------------------------------------------
+  // User
+  // -----------------------------------------------------
+  app.register(userPlugin, {
     prefix: API_PREFIX,
   });
 };

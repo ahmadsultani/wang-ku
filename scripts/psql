@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-docker exec -it supreme-solar-db-1 \
+docker exec -it wang-ku-db-1 \
   psql \
-  -d 'postgresql://postgres:postgres@127.0.0.1:5432/supreme-db' \
+  -d 'postgresql://postgres:postgres@127.0.0.1:5432/wangku-db' \
   -P expanded=auto

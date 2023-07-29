@@ -45,9 +45,18 @@ export const Business = Type.Object({
   monthly_income: Nullable(Type.Number()),
 });
 
+export const UserVerification = Type.Object({
+  id: Type.String({ format: 'uuid' }),
+  user_id: Type.String({ format: 'uuid' }),
+  picture: Nullable(Type.String()),
+  nik: Type.String({ minLength: 1 }),
+  birth_place: Type.String({ minLength: 1 }),
+});
+
 export const DbSchema = {
   users: Type.Intersect([User, TimestampColumn]),
   businesses: Type.Intersect([Business, TimestampColumn]),
+  users_verifications: Type.Intersect([UserVerification, TimestampColumn]),
 };
 
 export type Db = RecursiveStatic<typeof DbSchema>;

@@ -45,7 +45,7 @@ const authRoute: FastifyPluginAsync<JwtOptions> = async function (
         summary: 'User sign in',
         security: [],
         body: AuthSchema.sign_in.body,
-        response: addErrorSchemas({ 201: AuthSchema.sign_in.response }),
+        response: addErrorSchemas({ 200: AuthSchema.sign_in.response }),
       },
     },
     async function (request, reply) {

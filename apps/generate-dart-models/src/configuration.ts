@@ -1,4 +1,8 @@
-import { AuthSchema } from '@wang-ku/shared/schema';
+import {
+  AuthSchema,
+  BusinessCRUDSchema,
+  UserCRUDSchema,
+} from '@wang-ku/shared/schema';
 
 interface ModelConfiguration {
   path: string;
@@ -35,6 +39,8 @@ const Configurations: Config = {
   baseDartImport: "import 'package:shared/shared.dart';",
   schemas: {
     auth: AuthSchema,
+    business: BusinessCRUDSchema,
+    user: UserCRUDSchema,
   },
   models: [],
 };
