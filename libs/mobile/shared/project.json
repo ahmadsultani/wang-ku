@@ -1,0 +1,93 @@
+{
+  "name": "mobile-shared",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/mobile/shared/src",
+  "projectType": "library",
+  "targets": {
+    "analyze": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "flutter analyze",
+        "cwd": "libs/mobile/shared"
+      }
+    },
+    "clean": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "flutter clean",
+        "cwd": "libs/mobile/shared"
+      }
+    },
+    "format": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "flutter format libs/mobile/shared/*",
+        "cwd": "libs/mobile/shared"
+      }
+    },
+    "doctor": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "flutter doctor",
+        "cwd": "libs/mobile/shared"
+      }
+    },
+    "build-aar": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "flutter build aar",
+        "cwd": "libs/mobile/shared"
+      },
+      "outputs": ["{workspaceRoot}/libs/mobile/shared/build"]
+    },
+    "build-apk": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "flutter build apk",
+        "cwd": "libs/mobile/shared"
+      },
+      "outputs": ["{workspaceRoot}/libs/mobile/shared/build"]
+    },
+    "build-appbundle": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "flutter build appbundle",
+        "cwd": "libs/mobile/shared"
+      },
+      "outputs": ["{workspaceRoot}/libs/mobile/shared/build"]
+    },
+    "build-bundle": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "flutter build bundle",
+        "cwd": "libs/mobile/shared"
+      },
+      "outputs": ["{workspaceRoot}/libs/mobile/shared/build"]
+    },
+    "build-ios": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "flutter build ios",
+        "cwd": "libs/mobile/shared"
+      },
+      "outputs": ["{workspaceRoot}/libs/mobile/shared/build"]
+    },
+    "build-ios-framework": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "flutter build ios-framework",
+        "cwd": "libs/mobile/shared"
+      },
+      "outputs": ["{workspaceRoot}/libs/mobile/shared/build"]
+    },
+    "build-ipa": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "flutter build ipa",
+        "cwd": "libs/mobile/shared"
+      },
+      "outputs": ["{workspaceRoot}/libs/mobile/shared/build"]
+    }
+  },
+  "tags": []
+}

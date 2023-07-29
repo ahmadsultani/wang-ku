@@ -1,6 +1,4 @@
-import { TSchema, Type } from '@sinclair/typebox';
-
-import { AuthSchema } from './auth.schema';
+import { Type } from '@sinclair/typebox';
 
 // ---------------------------------------------------------------------------
 // Errors
@@ -18,17 +16,3 @@ export function addErrorSchemas(responseSchema: object): object {
     500: ErrorSchema,
   };
 }
-
-function removeKey(obj: any) {
-  delete obj['path'];
-  for (const prop in obj) {
-    delete obj[prop]['path'];
-  }
-  return obj;
-}
-
-type EndpointSchema = Record<string, TSchema>;
-type PluginSchema = Record<string, EndpointSchema>;
-export const ApiSchemas: Record<string, PluginSchema> = {
-  auth: removeKey(AuthSchema),
-};

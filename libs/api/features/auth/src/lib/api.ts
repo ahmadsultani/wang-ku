@@ -16,7 +16,7 @@ const authRoute: FastifyPluginAsync<JwtOptions> = async function (
     Body: Auth['sign_up']['body'];
     Reply: Auth['sign_up']['response'];
   }>(
-    opts.prefix + AuthSchema.sign_up.path,
+    `${opts.prefix}${AuthSchema.sign_up.path}`,
     {
       schema: {
         tags: ['auth'],
