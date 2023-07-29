@@ -6,6 +6,7 @@ import 'package:mobile/cubit/business_cubit.dart';
 import 'package:mobile/cubit/register_cubit.dart';
 import 'package:mobile/screens/confirmation_screen.dart';
 import 'package:mobile/screens/home/home_screen.dart';
+import 'package:mobile/screens/loan/loan_request_screen.dart';
 import 'package:mobile/screens/loan/loan_verification_first_screen.dart';
 import 'package:mobile/screens/loan/loan_verification_second_screen.dart';
 import 'package:mobile/screens/loan/loan_verification_third_scree.dart';
@@ -84,6 +85,8 @@ Future<void> main() async {
                 agama: argument['agama'],
               ),
             );
+          } else if (settings.name == "/loan-request") {
+            return RouteAnimations.slide(settings, LoanRequestScreen());
           } else if (settings.name == '/help-file') {
             return RouteAnimations.slide(
                 settings,

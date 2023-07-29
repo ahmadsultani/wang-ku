@@ -7,6 +7,7 @@ import 'package:mobile/widgets/global_widgets.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
   final bool isPengusaha = true;
+  final bool isVerified = true;
 
   @override
   Widget build(BuildContext context) {
@@ -49,9 +50,37 @@ class HomePage extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(
-            height: 32,
-          ),
+          if (isVerified)
+            Column(
+              children: [
+                const SizedBox(height: 24),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text('Status Pinjaman:', style: GlobalTextStyle.paragraph12),
+                    const SizedBox(
+                      width: 6,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                          color: const Color(0xFFFED15D),
+                          borderRadius: BorderRadius.circular(12)),
+                      child: Text('Sedang diproses',
+                          style: GlobalTextStyle.paragraph12),
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+              ],
+            )
+          else
+            const SizedBox(
+              height: 32,
+            ),
           Container(
             width: double.infinity,
             decoration: BoxDecoration(
@@ -180,11 +209,18 @@ class HomePage extends StatelessWidget {
                       const SizedBox(
                         height: 16,
                       ),
-                      GlobalButton(
-                          text: 'Verifikasi',
-                          secondary: true,
-                          onTap: () =>
-                              Navigator.pushNamed(context, '/loan-first'))
+                      if (isVerified)
+                        GlobalButton(
+                            text: 'Ajukan Pinjaman',
+                            secondary: true,
+                            onTap: () =>
+                                Navigator.pushNamed(context, '/loan-request'))
+                      else
+                        GlobalButton(
+                            text: 'Verifikasi KTP',
+                            secondary: true,
+                            onTap: () =>
+                                Navigator.pushNamed(context, '/loan-first'))
                     ],
                   ),
                 ),
