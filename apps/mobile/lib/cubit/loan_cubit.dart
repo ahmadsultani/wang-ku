@@ -3,6 +3,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:meta/meta.dart';
 
 import '../constants/failures.dart';
+import '../entities/budget_data.dart';
 import '../service/loan_service.dart';
 
 part 'loan_state.dart';
@@ -38,6 +39,26 @@ class LoanCubit extends Cubit<LoanState> {
       );
     } else {
       emit(LoanFailed(NetworkFailure('Tidak Terhubung ke jaringan')));
+    }
+  }
+
+  void onGetBudgetLoan() async {
+    emit(LoanGetBudgetLoading());
+    // check internet connection
+    if (await hasConnection()) {
+      final result = await service.getBudgetData();
+      print('state');
+
+      result.fold(
+        (failure) {
+          emit(LoanGetBudgetFailed(failure));
+        },
+        (budget) {
+          emit(LoanGetBudgetSuccess(budget));
+        },
+      );
+    } else {
+      emit(LoanGetBudgetFailed(NetworkFailure('Tidak Terhubung ke jaringan')));
     }
   }
 }

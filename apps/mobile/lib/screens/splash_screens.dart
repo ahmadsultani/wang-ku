@@ -14,7 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     Timer(const Duration(seconds: 2), () {
       Navigator.pushNamedAndRemoveUntil(
-          context, '/signup-first', (route) => false);
+          context, '/signin', (route) => false);
     });
     super.initState();
   }
