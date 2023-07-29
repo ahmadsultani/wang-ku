@@ -32,13 +32,13 @@ Aplikasi ini adalah aplikasi yang bertujuan untuk membantu dan mempermudah UMKM 
 2. run `pnpm install`
 3. run `pnpm set-up api`
    This might not work if you're using windows due to how windows process commands. You will need to setup manually using git bash with:
-4. run `docker-compose up`
-5. run `./scripts/migrate latest`
-6. run `nx serve api` to run the backend API
+   1. run `docker-compose up`
+   2. run `./scripts/migrate latest`
+4. run `nx serve api` to run the backend API
    You can check the swagger documentation at `http://127.0.0.1:9000/docs`
-7. run `nx serve wang-ku` to run the landing page website
-8. run `pnpm mobile get mobile` and `pnpm mobile get shared` to `pub get` for flutter packages
-9. create a `.env` in `apps/mobile/.env` and fill it with
+5. run `nx serve wang-ku` to run the landing page website
+6. run `pnpm mobile get mobile` and `pnpm mobile get shared` to `pub get` for flutter packages
+7. create a `.env` in `apps/mobile/.env` and fill it with
 
 ```.env
 API_URL="http://10.0.2.2:9000/api/v1" # if you are using emulator
