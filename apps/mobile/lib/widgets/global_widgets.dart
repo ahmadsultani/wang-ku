@@ -257,7 +257,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
           children: [
             Expanded(
               child: Text(
-                'Jenis Kelamin',
+                widget.text!,
                 style: GlobalTextStyle.label16.copyWith(
                   fontWeight: FontWeight.w500,
                   color: GlobalColor.neutral[900],

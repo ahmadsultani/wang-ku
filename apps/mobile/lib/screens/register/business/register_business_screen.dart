@@ -111,6 +111,7 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
                   onChange: onCategoryChange,
                   items: categoryItems,
                 ),
+                const SizedBox(height: 8),
                 CustomInputField(
                   label: 'No. NPWP',
                   hintText: 'XXXX XXXX XXXX XXXX',
