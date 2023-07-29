@@ -5,7 +5,7 @@ import fp from 'fastify-plugin';
 export const cors: FastifyPluginAsync = fp<FastifyCorsOptions>(
   async (fastify) => {
     fastify.register(corsPlugin, {
-      origin: true,
+      origin: false,
       exposedHeaders: ['content-disposition'],
     });
   }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile/constants/failures.dart';
 import 'package:mobile/entities/user.dart';
@@ -14,23 +15,28 @@ class RegisterService {
     String email,
     String password,
     String phoneNumber,
-    BigInt birthdate,
+    int birthdate,
     String gender,
   ) async {
     // TODO: HIT API
-    final response = await client.post(
-      Uri.parse('API_URL'),
-      body: {
-        'name': name,
-        'email': email,
-        'password': password,
-        'phoneNumber': phoneNumber,
-        'birthdate': birthdate,
-        'gender': gender,
-      },
-    );
+    final response = await client
+        .get(
+          Uri.parse('${dotenv.env['API_URL']}'),
+          //   headers: {
+          //   "content-type": "application/json",
+          // },
+          // body: jsonEncode({
+          //   'name': name,
+          //   'email': email,
+          //   'password': password,
+          //   'gender': gender,
+          //   'phone_number': phoneNumber,
+          //   'birth_date': birthdate,
+          //   'picture': '',
+          // }),
+        );
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       return const Right(null);
     } else {
       // parse response

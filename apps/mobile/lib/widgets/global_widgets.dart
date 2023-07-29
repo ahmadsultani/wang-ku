@@ -9,6 +9,7 @@ class CustomInputField extends StatefulWidget {
   final String additionalLabel;
   final TextEditingController controller;
   final bool number;
+  final bool submit;
 
   const CustomInputField({
     super.key,
@@ -18,6 +19,7 @@ class CustomInputField extends StatefulWidget {
     this.obscureText = false,
     required this.controller,
     this.number = false,
+    this.submit = false,
   });
 
   @override
@@ -64,9 +66,18 @@ class _CustomInputFieldState extends State<CustomInputField> {
           ],
         ),
         const SizedBox(height: 4),
-        TextField(
+        TextFormField(
           obscureText: hide ?? false,
           keyboardType: widget.number ? TextInputType.number : null,
+          textInputAction:
+              widget.submit ? TextInputAction.done : TextInputAction.next,
+          controller: widget.controller,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return '${widget.label.toLowerCase()} harus diisi';
+            }
+            return null;
+          },
           decoration: InputDecoration(
             hintText: widget.hintText,
             hintStyle: GlobalTextStyle.label12.copyWith(

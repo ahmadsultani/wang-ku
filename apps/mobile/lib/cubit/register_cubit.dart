@@ -27,7 +27,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     String email,
     String password,
     String phoneNumber,
-    BigInt birthdate,
+    int birthdate,
     String gender,
   ) async {
     emit(RegisterSignUpLoading());
