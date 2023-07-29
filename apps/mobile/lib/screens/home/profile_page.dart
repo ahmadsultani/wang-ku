@@ -1,8 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mobile/constants/styles.dart';
+import 'package:mobile/cubit/profile_cubit.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  @override
+  void initState() {
+    context.read<ProfileCubit>().onGetProfile();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,103 +89,106 @@ class ProfilePage extends StatelessWidget {
           decoration: BoxDecoration(
               border: Border.all(color: GlobalColor.primary[400]!),
               borderRadius: BorderRadius.circular(4)),
-          child: Column(children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
-              child: Row(
-                children: [
-                  Text(
-                    'Nama Lengkap',
-                    style: GlobalTextStyle.paragraph12.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: GlobalColor.neutral[900]),
+          child: BlocConsumer<ProfileCubit, ProfileState>(
+            listener: (context, state) {},
+            builder: (context, state) {
+              if (state is ProfileGetSuccess) {
+                return Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 13),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Nama Lengkap',
+                            style: GlobalTextStyle.paragraph12.copyWith(
+                                fontWeight: FontWeight.w600,
+                                color: GlobalColor.neutral[900]),
+                          ),
+                          const Spacer(),
+                          Text(
+                            state.profile.name,
+                            style: GlobalTextStyle.paragraph12
+                                .copyWith(color: GlobalColor.neutral[600]),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 13),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Email',
+                            style: GlobalTextStyle.paragraph12.copyWith(
+                                fontWeight: FontWeight.w600,
+                                color: GlobalColor.neutral[900]),
+                          ),
+                          const Spacer(),
+                          Text(
+                            state.profile.email,
+                            style: GlobalTextStyle.paragraph12
+                                .copyWith(color: GlobalColor.neutral[600]),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 13),
+                      child: Row(
+                        children: [
+                          Text(
+                            'No. Telepon',
+                            style: GlobalTextStyle.paragraph12.copyWith(
+                                fontWeight: FontWeight.w600,
+                                color: GlobalColor.neutral[900]),
+                          ),
+                          const Spacer(),
+                          Text(
+                            state.profile.number,
+                            style: GlobalTextStyle.paragraph12
+                                .copyWith(color: GlobalColor.neutral[600]),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 13),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Tanggal Lahir',
+                            style: GlobalTextStyle.paragraph12.copyWith(
+                                fontWeight: FontWeight.w600,
+                                color: GlobalColor.neutral[900]),
+                          ),
+                          const Spacer(),
+                          Text(
+                            DateFormat('d MMMM yyyy')
+                                .format(state.profile.birthdate),
+                            style: GlobalTextStyle.paragraph12
+                                .copyWith(color: GlobalColor.neutral[600]),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+              }
+              return Container(
+                height: 176,
+                child: Center(
+                  child: CircularProgressIndicator(
+                    color: GlobalColor.primary,
                   ),
-                  const Spacer(),
-                  Text(
-                    'Nurunnisa Fathanah',
-                    style: GlobalTextStyle.paragraph12
-                        .copyWith(color: GlobalColor.neutral[600]),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
-              child: Row(
-                children: [
-                  Text(
-                    'Email',
-                    style: GlobalTextStyle.paragraph12.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: GlobalColor.neutral[900]),
-                  ),
-                  const Spacer(),
-                  Text(
-                    'fath@gmail.com',
-                    style: GlobalTextStyle.paragraph12
-                        .copyWith(color: GlobalColor.neutral[600]),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
-              child: Row(
-                children: [
-                  Text(
-                    'No. Telepon',
-                    style: GlobalTextStyle.paragraph12.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: GlobalColor.neutral[900]),
-                  ),
-                  const Spacer(),
-                  Text(
-                    '0851-1204-3567',
-                    style: GlobalTextStyle.paragraph12
-                        .copyWith(color: GlobalColor.neutral[600]),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
-              child: Row(
-                children: [
-                  Text(
-                    'Tanggal Lahir',
-                    style: GlobalTextStyle.paragraph12.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: GlobalColor.neutral[900]),
-                  ),
-                  const Spacer(),
-                  Text(
-                    '08 Juli 2002',
-                    style: GlobalTextStyle.paragraph12
-                        .copyWith(color: GlobalColor.neutral[600]),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
-              child: Row(
-                children: [
-                  Text(
-                    'Kata Sandi',
-                    style: GlobalTextStyle.paragraph12.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: GlobalColor.neutral[900]),
-                  ),
-                  const Spacer(),
-                  Text(
-                    '',
-                    style: GlobalTextStyle.paragraph12
-                        .copyWith(color: GlobalColor.neutral[600]),
-                  ),
-                ],
-              ),
-            )
-          ]),
+                ),
+              );
+            },
+          ),
         ),
         const SizedBox(height: 16),
         Container(

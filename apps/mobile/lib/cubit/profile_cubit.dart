@@ -19,9 +19,6 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   void onGetProfile(
-    int requestBudget,
-    String accountNumber,
-    String bank,
   ) async {
     emit(ProfileGetLoading());
     // check internet connection

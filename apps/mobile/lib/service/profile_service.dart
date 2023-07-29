@@ -22,7 +22,8 @@ class ProfileService {
         "Authorization": "Bearer $token",
       },
     );
-    if (response.statusCode == 201) {
+    print(response.statusCode);
+    if (response.statusCode == 200) {
       final decodedResponse = jsonDecode(response.body);
       final data = decodedResponse['data'];
 

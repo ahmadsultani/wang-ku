@@ -9,14 +9,15 @@ class Profile {
     required this.email,
     required this.number,
     required this.birthdate,
-});
+  });
 
   factory Profile.fromJson(Map<String, dynamic> json) {
     return Profile(
       name: json['name'],
       email: json['email'],
-      number: json['number'],
-      birthdate: json['birthdate'],
+      number: json['phone_number'],
+      birthdate:
+          DateTime.fromMillisecondsSinceEpoch((json['birth_date'] as int)),
     );
   }
 }
