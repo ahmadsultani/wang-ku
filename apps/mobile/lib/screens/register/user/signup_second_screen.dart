@@ -163,8 +163,6 @@ class _SignupSecondScreenState extends State<SignupSecondScreen> {
                 BlocConsumer<RegisterCubit, RegisterState>(
                   listener: (context, state) {
                     if (state is RegisterSignUpSuccess) {
-                      final snackBar = successSnackBar('Berhasil membuat akun');
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       Navigator.pushNamedAndRemoveUntil(
                         context,
                         '/confirmation',
