@@ -32,6 +32,27 @@ const authRoute: FastifyPluginAsync<JwtOptions> = async function (
       return sendResult(result, reply, 201);
     }
   );
+
+  fastify.post<{
+    Body: Auth['sign_in']['body'];
+    Reply: Auth['sign_in']['response'];
+  }>(
+    `${opts.prefix}${AuthSchema.sign_in.path}`,
+    {
+      schema: {
+        tags: ['auth'],
+        description: 'User sign in',
+        summary: 'User sign in',
+        security: [],
+        body: AuthSchema.sign_in.body,
+        response: addErrorSchemas({ 201: AuthSchema.sign_in.response }),
+      },
+    },
+    async function (request, reply) {
+      const result = await data.signIn(fastify.db, fastify.jwt, request.body);
+      return sendResult(result, reply, 200);
+    }
+  );
 };
 
 export const authPlugin = fp(authRoute, {

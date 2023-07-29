@@ -21,7 +21,7 @@ describe('Authentication endpoints', () => {
 
   afterAll(() => db.destroy());
 
-  it('should be able to register', async () => {
+  it('should be able to register and login', async () => {
     const insertUser = T.randomUser();
 
     const signUpResponse = await app.inject({
@@ -32,9 +32,27 @@ describe('Authentication endpoints', () => {
     expect(signUpResponse.statusCode).toBe(201);
     expect(signUpResponse.json().data.email).toBe(insertUser.email);
 
+    const signInResponse = await app.inject({
+      method: 'POST',
+      url: AUTH_PATH + SS.sign_in.path,
+      payload: {
+        email: insertUser.email,
+        password: insertUser.password,
+      },
+    });
+    expect(signInResponse.statusCode).toBe(200);
+    expect(signInResponse.json().data).toMatchObject({
+      token: expect.any(String),
+      user: {
+        id: expect.any(String),
+        name: insertUser.name,
+        email: insertUser.email,
+      },
+    });
+
     await db
       .deleteFrom('users')
-      .where('email', '=', insertUser.email)
+      .where('id', '=', signInResponse.json().data.user.id)
       .executeTakeFirstOrThrow();
   });
 });
