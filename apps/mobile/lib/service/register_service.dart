@@ -18,7 +18,6 @@ class RegisterService {
     int birthdate,
     String gender,
   ) async {
-    // TODO: HIT API
     if (gender == "Laki-laki") {
       gender = "male";
     } else {
@@ -54,7 +53,6 @@ class RegisterService {
     String email,
     String password,
   ) async {
-    // TODO: HIT API
     final response = await client.post(
       Uri.parse('${dotenv.env['API_URL']}auth/sign-in'),
       headers: {
@@ -99,7 +97,7 @@ class RegisterService {
       final user = User.fromJson(jsonDecode(prefs.getString('user') as String));
       return Right(user);
     } else {
-      return Left(null);
+      return const Left(null);
     }
   }
 }

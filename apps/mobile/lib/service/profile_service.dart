@@ -7,9 +7,11 @@ import 'package:mobile/entities/profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants/failures.dart';
+import '../entities/dashboard.dart';
 
 class ProfileService {
   final client = http.Client();
+  Profile? profile;
 
   Future<Either<Failure, Profile>> getProfile() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -22,12 +24,25 @@ class ProfileService {
         "Authorization": "Bearer $token",
       },
     );
-    print(response.statusCode);
-    if (response.statusCode == 200) {
+    final responseTwo = await client.get(
+      Uri.parse('${dotenv.env['API_URL']}dashboard'),
+      headers: {
+        "content-type": "application/json",
+        "accept": "application/json",
+        "Authorization": "Bearer $token",
+      },
+    );
+    if (response.statusCode == 200 && responseTwo.statusCode == 200) {
       final decodedResponse = jsonDecode(response.body);
       final data = decodedResponse['data'];
 
-      return Right(Profile.fromJson(data['user']));
+      final profile = Profile.fromJson(data['user']);
+      final decodedResponseTwo = jsonDecode(responseTwo.body);
+      final dashboardData = Dashboard.fromJson(decodedResponseTwo['data']);
+      profile.lendLimit = dashboardData.lendLimit;
+      profile.lendTotal = dashboardData.lendTotal;
+
+      return Right(profile);
     } else {
       // parse response
       final decodedResponse = jsonDecode(response.body);

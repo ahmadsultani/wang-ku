@@ -1,12 +1,35 @@
 class Dashboard {
-  final int limit;
+  final int lendTotal;
+  final int lendLimit;
   final int income;
   final int outcome;
-  final LoanStatus status;
+  final String lendStatus;
   final bool ktpVerify;
-  final bool busenissVerify;
+  final bool businessVerify;
 
-  Dashboard(this.limit, this.income, this.outcome, this.status, this.ktpVerify, this.busenissVerify);
+  Dashboard({
+    required this.lendTotal,
+    required this.lendLimit,
+    required this.income,
+    required this.outcome,
+    required this.ktpVerify,
+    required this.businessVerify,
+    required this.lendStatus,
+  });
+
+  factory Dashboard.fromJson(Map<String, dynamic> json) {
+    bool businessVerif = json['business'] == null ? false : true;
+    bool ktpVerif = json['user_verification'] == null ? false : true;
+    return Dashboard(
+      lendTotal: json['lend_total'] ?? 0,
+      lendLimit: json['lend_limit'],
+      income: json['monthly_income'],
+      outcome: json['monthly_spending'] ?? 0,
+      ktpVerify: ktpVerif,
+      businessVerify: businessVerif,
+      lendStatus: json['last_lend_status'] ?? '',
+    );
+  }
 }
 
 enum LoanStatus {

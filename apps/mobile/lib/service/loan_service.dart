@@ -54,7 +54,6 @@ class LoanService {
     );
     if (response.statusCode == 200) {
       final decodedResponse = jsonDecode(response.body);
-      print('tes');
       return Right(
           BudgetData.fromJson(decodedResponse['data'] as Map<String, dynamic>));
     } else {

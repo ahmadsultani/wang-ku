@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile/constants/styles.dart';
 import 'package:mobile/cubit/profile_cubit.dart';
+import 'package:mobile/cubit/register_cubit.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -20,20 +21,22 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    final user = context.read<RegisterCubit>().currentUser;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(children: [
         const SizedBox(height: 32),
         Row(
           children: [
-            Text('Nurunnisa Fathanah',
+            Text(user!.name,
                 style: GlobalTextStyle.paragraph18
                     .copyWith(fontWeight: FontWeight.w600)),
             const Spacer(),
             const Image(
-                image: AssetImage('assets/images/profile.png'),
-                width: 32,
-                height: 32)
+              image: AssetImage('assets/images/profile.png'),
+              width: 32,
+              height: 32,
+            ),
           ],
         ),
         const SizedBox(height: 32),
@@ -55,10 +58,26 @@ class _ProfilePageState extends State<ProfilePage> {
             const SizedBox(
               height: 4,
             ),
-            Text(
-              'Rp. 0/500.000.000',
-              style: GlobalTextStyle.heading3.copyWith(
-                  fontWeight: FontWeight.w700, color: const Color(0xFFFFFFFF)),
+            BlocConsumer<ProfileCubit, ProfileState>(
+              listener: (context, state) {
+                // TODO: implement listener
+              },
+              builder: (context, state) {
+                if (state is ProfileGetSuccess) {
+                  return Text(
+                    'Rp. ${state.profile.lendTotal}/${state.profile.lendLimit}',
+                    style: GlobalTextStyle.heading3.copyWith(
+                        fontWeight: FontWeight.w700,
+                        color: const Color(0xFFFFFFFF)),
+                  );
+                }
+                return Text(
+                  'Rp. -/-',
+                  style: GlobalTextStyle.heading3.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: const Color(0xFFFFFFFF)),
+                );
+              },
             ),
           ]),
         ),

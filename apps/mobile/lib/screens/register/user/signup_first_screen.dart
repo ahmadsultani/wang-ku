@@ -127,8 +127,6 @@ class _SignupFirstScreenState extends State<SignupFirstScreen> {
                   GlobalButton(
                     text: 'Selanjutnya',
                     onTap: () {
-                      print(passwordController.text);
-                      print(nameController.text);
                       if (_formKey.currentState!.validate()) {
                         if (passwordController.text.length < 6) {
                           final snackBar = alertSnackBar(

@@ -47,7 +47,6 @@ class LoanCubit extends Cubit<LoanState> {
     // check internet connection
     if (await hasConnection()) {
       final result = await service.getBudgetData();
-      print('state');
 
       result.fold(
         (failure) {

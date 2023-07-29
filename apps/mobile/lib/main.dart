@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/cubit/business_cubit.dart';
+import 'package:mobile/cubit/dashboard_cubit.dart';
 import 'package:mobile/cubit/profile_cubit.dart';
 import 'package:mobile/cubit/register_cubit.dart';
 import 'package:mobile/cubit/verify_cubit.dart';
@@ -31,6 +32,9 @@ Future<void> main() async {
   runApp(
     MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (context) => DashboardCubit(),
+        ),
         BlocProvider(
           create: (context) => RegisterCubit(),
         ),

@@ -47,7 +47,7 @@ class _LoanRequestScreenState extends State<LoanRequestScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: const GlobalAppBar(
-          text: 'Pegajuan Pinjaman',
+          text: 'Pengajuan Pinjaman',
         ),
         body: BlocConsumer<LoanCubit, LoanState>(
           listener: (context, state) {
@@ -133,6 +133,7 @@ class _LoanRequestScreenState extends State<LoanRequestScreen> {
                             label: 'Jumlah Pinjaman',
                             hintText: '100.000.000',
                             controller: jumlahController,
+                            number: true,
                           ),
                           const SizedBox(height: 9),
                           CustomInputField(
